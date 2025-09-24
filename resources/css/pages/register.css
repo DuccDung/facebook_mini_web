@@ -1,0 +1,261 @@
+/* Facebook-like Sign Up — clone (no FB assets used) */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+:root{
+  --fb-blue: #1877f2;
+  --fb-green: #42b72a;
+  --text: #1c1e21;
+  --muted: #606770;
+  --border: #ccd0d5;
+  --bg: #f0f2f5;
+  --card: #fff;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  color: var(--text);
+  background: var(--bg);
+}
+
+.page{
+  min-height: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: flex-start;
+  justify-items: center;
+  gap: 24px;
+  padding: 40px 16px 64px;
+}
+
+.brand{
+  width: min(980px, 100%);
+  display: flex;
+  justify-content: flex-start;
+}
+
+.logo{
+  font-size: 56px;
+  font-weight: 700;
+  color: var(--fb-blue);
+  letter-spacing: -1px;
+  line-height: 1;
+  user-select: none;
+}
+
+.card{
+  width: min(462px, 100%);
+  background: var(--card);
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0,0,0,.1);
+  padding: 16px;
+}
+
+.card__header{
+  border-bottom: 1px solid #e5e7eb;
+  padding: 8px 8px 16px;
+  margin: 0 0 12px;
+  text-align: center;
+}
+
+.card__header h1{
+  margin: 0;
+  font-size: 28px;
+  line-height: 34px;
+  font-weight: 700;
+}
+
+.subtitle{
+  color: var(--muted);
+  margin-top: 4px;
+  font-size: 15px;
+}
+
+.alert{
+  background: #ffeceb;
+  color: #cc1f1a;
+  border: 1px solid #f5c2c0;
+  padding: 10px 12px;
+  border-radius: 6px;
+  margin: 8px 8px 12px;
+  font-size: 14px;
+}
+
+.hidden{ display: none !important; }
+
+.row{
+  display: grid;
+  gap: 10px;
+}
+
+.row.two{
+  grid-template-columns: 1fr 1fr;
+}
+
+.row.three{
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.field{
+  padding: 8px;
+}
+
+input[type="text"],
+input[type="password"],
+select{
+  width: 100%;
+  height: 40px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0 12px;
+  font-size: 15px;
+  background: #fff;
+  outline: none;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+input::placeholder{ color: #8d949e; }
+
+input:focus,
+select:focus{
+  border-color: var(--fb-blue);
+  box-shadow: 0 0 0 3px rgba(24,119,242,.15);
+}
+
+.label{
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  margin: 4px 8px 6px;
+}
+
+.radios{
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.radio{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 12px;
+  height: 40px;
+  font-size: 15px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.radio input{
+  width: 18px; height: 18px;
+}
+
+.legal{
+  font-size: 12px;
+  color: var(--muted);
+  margin: 0 8px 10px;
+  line-height: 1.4;
+}
+
+.actions{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px;
+}
+
+.btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+.btn--primary{
+  background: var(--fb-green);
+  color: #fff;
+}
+
+.btn--primary:hover{
+  filter: brightness(.95);
+}
+
+.spinner{
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  border: 2px solid #d1fae5;
+  border-top-color: #065f46;
+  animation: spin .8s linear infinite;
+}
+
+@keyframes spin{
+  to { transform: rotate(360deg); }
+}
+
+.signin{
+  text-align: center;
+  padding: 6px 8px 12px;
+}
+
+.signin a{
+  color: var(--fb-blue);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.signin a:hover{ text-decoration: underline; }
+
+/* Layout for larger screens similar to FB */
+@media (min-width: 900px){
+  .brand{
+    justify-content: center;
+    padding-right: 32px;
+  }
+}
+
+
+/* ===== Validation styles ===== */
+.field{ position: relative; }
+.field.is-invalid input,
+.field.is-invalid select{
+  border-color: #e03131 !important;
+  box-shadow: 0 0 0 1px #e03131 inset, 0 0 0 3px rgba(224,49,49,.15);
+}
+.field .error-msg{
+  color: #e03131;
+  font-size: 12px;
+  margin: 6px 2px 0;
+}
+.field .err-icon{
+  position: absolute;
+  top: 14px;
+  right: 24px;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: #e03131;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 12px;
+  line-height: 1;
+  pointer-events: none;
+}
+/* For radio group container */
+.field.is-invalid .radio{
+  border-color: #e03131;
+}
