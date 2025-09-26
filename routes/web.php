@@ -16,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('auth/register');
 });
+
+Route::get('/confirm_mail', function () {
+    return view('auth/confirm_mail');
+});

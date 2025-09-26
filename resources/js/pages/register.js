@@ -1,4 +1,5 @@
 import { registerService } from "../services/auth_service.js";
+import { domain } from "../utils/domain.js";
 (
   function () {
     const qs = (s, el = document) => el.querySelector(s);
@@ -334,7 +335,12 @@ import { registerService } from "../services/auth_service.js";
         const res = await registerService(payload);  // Gọi registerService thay cho fetch
         if (res && res.status == 200) {  // Kiểm tra nếu res hợp lệ và res.ok để xác nhận request thành công
           hideAlert();
-          alert('Đăng ký thành công!');
+          // Chuyển hướng và thay thế lịch sử trang hiện tại
+          localStorage.setItem('email', JSON.stringify(payload.email));
+          localStorage.setItem('userId', JSON.stringify(res.data.userId));
+          localStorage.setItem('token_email', JSON.stringify(res.data.token));
+          const domain_url = domain.url + 'confirm_mail'; // domain.url still domain.js
+          window.location.replace(domain_url); // next page
           regForm.reset();
           emailConfirmWrap.classList.add('hidden');
           customGender.classList.add('hidden');

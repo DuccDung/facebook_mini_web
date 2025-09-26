@@ -22,3 +22,20 @@ export const loginService = async (payload) => {
     throw error;
   }
 };
+
+// function send again confirm mail
+export const resendConfirmMailService = async (userId, email, token) => {
+  try {
+    const res = await API.get('/api/again-sent-email', {
+      params: {
+        userId: userId,
+        email: email,
+        token: token
+      }
+    });
+    return res;
+  } catch (error) {
+    console.error("Error in resendConfirmMailService:", error);
+    throw error;
+  }
+}
