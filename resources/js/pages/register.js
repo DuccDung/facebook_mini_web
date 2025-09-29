@@ -368,3 +368,8 @@ import { domain } from "../utils/domain.js";
       submitBtn.classList.add('disabled');
     });
   })();
+
+  document.getElementById('signin').addEventListener('click', function(e){
+    e.preventDefault();
+    window.location.href = "/login";
+  });

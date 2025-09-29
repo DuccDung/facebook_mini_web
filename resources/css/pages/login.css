@@ -1,0 +1,154 @@
+:root{
+      --fb-blue:#1877f2;
+      --fb-green:#42b72a;
+      --bg:#f0f2f5;
+      --card:#fff;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: var(--bg);
+      color:#1c1e21;
+    }
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 64px;
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    /* left column */
+    .left {
+      max-width: 420px;
+      flex: 1;
+    }
+    .fb-logo {
+      width: 240px;
+      display:block;
+      margin-bottom: 18px;
+    }
+    .left h2 {
+      font-size: 28px;
+      line-height: 1.2;
+      font-weight: 400;
+    }
+
+    /* right card */
+    .right {
+      width: 360px;
+      background: var(--card);
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.08);
+      text-align: center;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #dddfe2;
+      border-radius: 6px;
+      font-size: 15px;
+      outline: none;
+      transition: box-shadow .12s, border-color .12s;
+    }
+    .input:focus {
+      border-color: rgba(24,119,242,.8);
+      box-shadow: 0 0 0 3px rgba(24,119,242,.08);
+    }
+    .password-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .toggle-pass {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 13px;
+      color: var(--muted);
+      padding: 6px;
+    }
+    .login-btn {
+      width: 100%;
+      padding: 12px;
+      background: var(--fb-blue);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .toggle-pass svg {
+      stroke: #606770; /* màu xám mặc định */
+    }
+    .toggle-pass:hover svg {
+      stroke: #1877f2; /* đổi sang xanh khi hover */
+    }
+    .login-btn:active{transform:translateY(1px)}
+    .login-btn[disabled]{
+      opacity: .6;
+      cursor: default;
+    }
+
+    .links {
+      margin-top: 8px;
+      font-size: 14px;
+    }
+    .links a { color: var(--fb-blue); text-decoration:none }
+    .links a:hover { text-decoration: underline; }
+
+    hr {
+      margin: 16px 0;
+      border: 0;
+      height: 1px;
+      background: #e6e8eb;
+    }
+    .signup-btn {
+      display: inline-block;
+      background: var(--fb-green);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 700;
+      padding: 10px 18px;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+    .content-right {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .page-msg {
+      margin-top: 14px;
+      font-size: 14px;
+      color: #1c1e21;
+    }
+    .page-msg a { color: #1c1e21; font-weight: 600; text-decoration:none }
+
+    /* responsive */
+    @media (max-width:900px){
+      .container{
+        flex-direction: column;   /* xếp dọc */
+        align-items: center;      /* căn giữa ngang */
+        justify-content: flex-start; /* đẩy nội dung lên trên */
+        min-height: 0;            /* override cái 100vh */
+        height: auto;             /* chiều cao auto */
+        padding: 40px 20px;       /* thêm padding để có khoảng cách top */
+        gap: 28px;                /* khoảng cách giữa logo và form */
+        }
+      .left{text-align:center}
+      .fb-logo{width: 220px; margin:0 auto 12px}
+      .right {width: 100%; max-width: 360px;/* form hiện sau */}
+    }

@@ -2,13 +2,14 @@ import axios from "axios";
 
 // Tạo instance mặc định
 const API = axios.create({
-  baseURL: "http://localhost:5000", 
+  baseURL: "http://localhost:5000", // đây là domain 
   headers: {
     "Content-Type": "application/json",
   },
   withCredentials: true, // rất quan trọng nếu dùng cookie (Laravel Sanctum / session)
 });
 
+export default API;
 
 // API.interceptors.request.use(
 //   (config) => {
@@ -35,4 +36,3 @@ const API = axios.create({
 //   }
 // );
 
-export default API;

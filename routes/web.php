@@ -20,3 +20,11 @@ Route::get('/', function () {
 Route::get('/confirm_mail', function () {
     return view('auth/confirm_mail');
 });
+
+Route::get('/login', function () {
+    return view('auth/login');
+});
+
+Route::get('/home', function () {
+    return view('auth/home');
+});

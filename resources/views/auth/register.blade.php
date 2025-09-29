@@ -101,7 +101,7 @@
                 </div>
 
                 <div class="signin">
-                    <a href="#" aria-label="Bạn đã có tài khoản ư?">Bạn đã có tài khoản ư?</a>
+                    <a href="#" id="signin" aria-label="Bạn đã có tài khoản ư?">Bạn đã có tài khoản ư?</a>
                 </div>
             </form>
         </section>

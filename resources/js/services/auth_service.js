@@ -13,9 +13,9 @@ export const registerService = async (payload) => {
 };
 
 // Hàm đăng nhập người dùng
-export const loginService = async (payload) => {
+export const loginService = async (payload) => { // m viết lại cái đoạn này
   try {
-    const res = await API.post('/login', payload);
+    const res = await API.post('/api/sign-in', payload); // cái này sẽ đc nối vs domain api (gửi cái payload giống cái body bên postman)
     return res.data;
   } catch (error) {
     console.error("Error in loginService:", error);
