@@ -1,6 +1,8 @@
 import axios from "axios";
 
 // Tạo instance mặc định
+//https://localhost:7087
+//http://localhost:5000
 const API = axios.create({
   baseURL: "http://localhost:5000", // đây là domain 
   headers: {

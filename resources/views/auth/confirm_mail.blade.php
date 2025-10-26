@@ -50,60 +50,6 @@
       </section>
     </main>
 
-    <script>
-      const btnResend = document.getElementById('btn-resend');
-      const alertBox = document.getElementById('alert-invalid');
-      const alertTitle = document.getElementById('alert-title');
-      const alertDesc = document.getElementById('alert-desc');
-      const emailDisplay = document.getElementById('email-display');
-      const timerElement = document.getElementById('timer');
-
-      let countdown = 60;
-      let countdownInterval;
-
-      function showAlert(title, desc) {
-        alertTitle.textContent = title;
-        alertDesc.textContent = desc;
-        alertBox.classList.remove('hidden');
-      }
-
-      function hideAlert() {
-        alertBox.classList.add('hidden');
-      }
-
-      // Giả lập việc gửi email xác thực
-      function onResend() {
-        // Giả lập việc gửi email thành công
-        emailDisplay.textContent = "johndoe@example.com"; // Hiển thị email đã gửi
-        hideAlert();
-        alert('Demo only – Đã gửi email xác thực tới: johndoe@example.com');
-
-        // Reset countdown
-        countdown = 60;
-        updateTimer();
-        clearInterval(countdownInterval);
-        startCountdown();
-      }
-
-      function startCountdown() {
-        countdownInterval = setInterval(() => {
-          countdown--;
-          updateTimer();
-          if (countdown <= 0) {
-            clearInterval(countdownInterval);
-            btnResend.disabled = false; // Kích hoạt lại nút gửi email sau khi hết thời gian
-          }
-        }, 1000);
-      }
-
-      function updateTimer() {
-        timerElement.textContent = countdown;
-      }
-
-      // Bắt đầu countdown khi tải trang
-      startCountdown();
-
-      btnResend.addEventListener('click', onResend);
-    </script>
+  
   </body>
 </html>

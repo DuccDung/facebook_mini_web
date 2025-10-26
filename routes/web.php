@@ -25,6 +25,13 @@ Route::get('/login', function () {
     return view('auth/login');
 });
 
+// Route::get('/home', function () {
+//     return view('auth/home');
+// });
 Route::get('/home', function () {
-    return view('auth/home');
+    return view('app_chat/layouts/app_chat');
+});
+
+Route::get('/chat', function () {
+    return view('app_chat/layouts/app_chat');
 });
