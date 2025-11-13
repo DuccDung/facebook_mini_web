@@ -82,7 +82,31 @@ export function subscribeRoom(roomId, handler, { qos = 1 } = {}) {
     }
   };
 }
+export function subscribeTypingRoom(roomId, handler, { qos = 1 } = {}) {
+  if (!client) throw new Error("MQTT client not connected");
+  const topic = `chat/typing/${roomId}`;
 
+  client.subscribe(topic, { qos }, (err) => {
+    if (err) console.error("Subscribe error:", err);
+  });
+
+  if (!topicHandlers.has(topic)) topicHandlers.set(topic, new Set());
+  topicHandlers.get(topic).add(handler);
+
+  // Unsubscribe/cleanup
+  return () => {
+    const set = topicHandlers.get(topic);
+    if (set) {
+      set.delete(handler);
+      if (set.size === 0) {
+        topicHandlers.delete(topic);
+        client.unsubscribe(topic, (err) => {
+          if (err) console.error("Unsubscribe error:", err);
+        });
+      }
+    }
+  };
+}
 /** Gửi tin nhắn vào room */
 export function publishToRoom(roomId, payload, { qos = 1, retain = false } = {}) {
   if (!client) throw new Error("MQTT client not connected");
@@ -101,3 +125,12 @@ export function disconnectMqtt() {
 export function isConnected() {
   return !!client?.connected;
 }
+
+/** Gửi tin nhắn vào room */
+export function publishTypingToRoom(roomId, payload, { qos = 1, retain = false } = {}) {
+  if (!client) throw new Error("MQTT client not connected");
+  const topic = `chat/typing/${roomId}`;
+  const data = typeof payload === "string" ? payload : JSON.stringify(payload);
+  client.publish(topic, data, { qos, retain });
+}
+

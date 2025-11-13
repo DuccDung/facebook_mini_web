@@ -1,6 +1,6 @@
 
 import { GetConversations } from "../../services/conversation_service.js";
-import { connectMqtt, subscribeRoom, publishToRoom, isConnected }
+import { connectMqtt, subscribeRoom, publishToRoom, publishTypingToRoom, isConnected, subscribeTypingRoom }
   from "../../services/mqttService.js";
 import { initMqtt }
   from "../app_chat/handle_chat.js";
@@ -15,7 +15,11 @@ import { initMqtt }
 //   { id: 4, name: "Lê Văn Hưng", snippet: "Bạn: Dạ vâng ạ • 6 ngày", time: "", avatar: "assets/images/contact-4.png" },
 //   { id: 5, name: "Phạm Thị Lượng", snippet: "Con ăn gì để đi mua con • 1 tuần", time: "", avatar: "assets/images/contact-5.png" },
 // ];
+// Typing indicator element
+let typingIndicatorElement = null;
+let userTypingTimeout = null; // Timeout để track user typing
 let threads = [];
+
 // ===== Khởi tạo app chat =====
 async function initChatApp() {
   try {
@@ -36,6 +40,7 @@ async function initChatApp() {
       setActiveThread(activeThread.id);
     }
     subscribeAllThreads();
+    subscribeAllTypingThreads();
   } catch (err) {
     console.error("Failed to fetch conversations:", err);
   }
@@ -228,6 +233,7 @@ function sendMessage() {
       text,
       senderId: localStorage.getItem("userId"),
       threadId: activeThread.id,
+      messageType: 1, // text
       createdAt: new Date().toISOString()
     };
     publishToRoom(activeThread.id, payload);
@@ -376,13 +382,13 @@ function setActiveThread(id) {
 }
 
 // ===== Contacts & chọn người nhận =====
-const contacts = [
-  { id: 1, name: "Hue Do", avatar: "assets/images/contact-2.png" },
-  { id: 2, name: "Lê Ngọc", avatar: "assets/images/contact-1.png" },
-  { id: 3, name: "CLC CNTT V-A 1", avatar: "assets/images/contact-3.png" },
-  { id: 4, name: "Lê Văn Hưng", avatar: "assets/images/contact-4.png" },
-  { id: 5, name: "Phạm Thị Lượng", avatar: "assets/images/contact-5.png" }
-];
+// const contacts = [
+//   { id: 1, name: "Hue Do", avatar: "assets/images/contact-2.png" },
+//   { id: 2, name: "Lê Ngọc", avatar: "assets/images/contact-1.png" },
+//   { id: 3, name: "CLC CNTT V-A 1", avatar: "assets/images/contact-3.png" },
+//   { id: 4, name: "Lê Văn Hưng", avatar: "assets/images/contact-4.png" },
+//   { id: 5, name: "Phạm Thị Lượng", avatar: "assets/images/contact-5.png" }
+// ];
 
 toSearch.addEventListener("input", e => {
   const q = e.target.value.toLowerCase().trim();
@@ -446,6 +452,7 @@ async function subscribeAllThreads() {
       console.log(`[${topic}]`, msg);
       const userId = localStorage.getItem("userId");
       if (msg.senderId === userId) return;
+      hideTypingIndicator();
       // 1️⃣ Tìm thread tương ứng
       const found = threads.find(x => x.id === t.id);
       if (!found) return;
@@ -489,4 +496,106 @@ async function subscribeAllThreads() {
   for (const t of threads) console.log(`Subscribed to room ${t.id}`);
   console.log(`Đã subscribe ${threads.length} phòng`);
 }
+async function subscribeAllTypingThreads() {
+  for (const t of threads) {
+    subscribeTypingRoom(t.id, (msg, topic) => {
+      const userId = localStorage.getItem("userId");
+      if (msg.senderId === userId) return;
+      // 1️ Tìm thread tương ứng
+      const found = threads.find(x => x.id === t.id);
+      if (!found) return;
+
+      // 3 Nếu đang mở thread đó thì append ngay vào box chat
+      if (activeThread && activeThread.id === found.id) {
+        showTypingIndicator();
+      }
+      // 4️ Nếu không phải thread đang mở thì chỉ cập nhật left menu
+      // else {
+      //   // Cập nhật snippet/time hiển thị
+      //   const threadItem = document.querySelector(`.thread-item[data-id="${found.id}"]`);
+      //   if (threadItem) {
+      //     const snippetEl = threadItem.querySelector(".snippet");
+      //     const timeEl = threadItem.querySelector(".thread-time");
+      //   }
+
+      //   // Đưa thread đó lên đầu danh sách
+      //   const idx = threads.findIndex(x => x.id === found.id);
+      //   if (idx > 0) {
+      //     const [updated] = threads.splice(idx, 1);
+      //     threads.unshift(updated);
+      //     renderThreads(threads);
+      //   }
+      // }
+    });
+  }
+  for (const t of threads) console.log(`Subscribed to room ${t.id}`);
+  console.log(`Đã subscribe ${threads.length} phòng`);
+}
+// =========================================================================
+// =======================================friend typing=====================
+let typingTimeout = null;
+
+// Hàm tạo typing indicator
+function createTypingIndicator() {
+  const indicator = document.createElement('div');
+  indicator.className = 'typing-indicator';
+  indicator.id = 'typingIndicator';
+  indicator.innerHTML = `
+    <div class="typing-dot"></div>
+    <div class="typing-dot"></div>
+    <div class="typing-dot"></div>
+  `;
+  return indicator;
+}
+
+// Hàm ẩn typing indicator
+function hideTypingIndicator() {
+  if (typingIndicatorElement && typingIndicatorElement.parentNode) {
+    typingIndicatorElement.remove();
+    typingIndicatorElement = null; // Reset lại indicator
+  }
+
+  // Khôi phục status nếu cần
+  if (activeThread && peerStatus) {
+    peerStatus.textContent = activeThread.time ? ("Hoạt động " + activeThread.time + " trước") : "Đang hoạt động";
+  }
+}
+
+// Hàm hiển thị typing indicator liên tục
+function showTypingIndicator() {
+  // Xóa typing indicator cũ nếu có
+  hideTypingIndicator();
+
+  // Tạo và thêm typing indicator mới
+  typingIndicatorElement = createTypingIndicator();
+  scroller.appendChild(typingIndicatorElement);
+
+  // Scroll xuống cuối
+  scroller.scrollTop = scroller.scrollHeight;
+
+  // Cập nhật status
+  if (activeThread && peerStatus) {
+    peerStatus.textContent = "Đang nhập...";
+  }
+
+  // Không ẩn indicator nếu vẫn có sự kiện nhập
+  if (typingTimeout) {
+    clearTimeout(typingTimeout);
+  }
+
+  // Reset timeout để ẩn sau 3 giây nếu không có sự kiện nhập
+  typingTimeout = setTimeout(() => {
+    hideTypingIndicator();  // Ẩn typing indicator nếu không có hoạt động
+  }, 3000); // Ẩn sau 3 giây không có tin nhắn
+}
+
+// // Lắng nghe sự kiện nhập văn bản
+msgInput.addEventListener('input', () => {
+  publishTypingToRoom(activeThread.id, {
+    senderId: localStorage.getItem("userId"),
+    status: "typing"
+  });
+});
+
+
 
