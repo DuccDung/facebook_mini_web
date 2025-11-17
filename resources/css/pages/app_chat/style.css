@@ -1314,3 +1314,16 @@ body {
     opacity: 1;
   }
 }
+
+.message-time {
+  font-size: 12px;
+  color: #999;
+  margin-top: 5px;
+  text-align: center;
+  visibility: hidden; /* Mặc định ẩn thời gian */
+  transition: visibility 0.2s ease-in-out; /* Thêm hiệu ứng chuyển động khi hover */
+}
+
+.msg:hover .message-time {
+  visibility: visible; /* Hiện thời gian khi hover vào tin nhắn */
+}

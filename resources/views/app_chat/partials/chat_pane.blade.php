@@ -10,8 +10,8 @@
         <div class="peer">
           <img id="peerAvatar" src="assets/images/contact-1.png" alt="avatar" />
           <div>
-            <div class="name" id="peerName">Lê Ngọc</div>
-            <div class="sub" id="peerStatus">Hoạt động 1 giờ trước</div>
+            <div class="name" id="peerName"></div>
+            <div class="sub" id="peerStatus"></div>
           </div>
         </div>
         <div class="chat-actions">
@@ -29,8 +29,8 @@
         </div>
       </div>
 
-
-      <section id="messageScroller" class="scroller">
+      {{-- height scroller == height total - (chatHeader + topBar + composer) --}}
+      <section id="messageScroller" class="scroller">  
         <!-- Messages will be appended here -->
       </section>
 

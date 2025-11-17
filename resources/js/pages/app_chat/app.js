@@ -1,4 +1,5 @@
 
+import { set } from "lodash";
 import { GetConversations } from "../../services/conversation_service.js";
 import { connectMqtt, subscribeRoom, publishToRoom, publishTypingToRoom, isConnected, subscribeTypingRoom }
   from "../../services/mqttService.js";
@@ -45,8 +46,10 @@ async function initChatApp() {
     console.error("Failed to fetch conversations:", err);
   }
 }
-document.addEventListener("DOMContentLoaded", initChatApp);
-
+document.addEventListener("DOMContentLoaded", function () {
+  setScrollerHeight();
+  initChatApp();
+});
 let activeThread = threads.find(t => t.active) || threads[0];
 
 // ===== DOM refs =====
@@ -70,7 +73,7 @@ const toInput = document.getElementById("toInput");
 const toSearch = document.getElementById("toSearch");
 const toSearchResults = document.getElementById("toSearchResults");
 const composer = document.querySelector(".composer");
-
+const chatHeader = document.querySelector(".chat-header");
 // ===== State cho luồng tạo tin nhắn mới =====
 let isComposingNew = false;
 let selectedRecipients = [];
@@ -83,6 +86,16 @@ const isMobile = () => window.matchMedia('(max-width: 900px)').matches;
 const showChat = () => app.classList.remove('show-list');
 const showList = () => app.classList.add('show-list');
 
+// ======== scroll chat box ui==============
+function setScrollerHeight() {
+  let appHeight = app.offsetHeight;
+  let chatHeaderHeight = chatHeader.offsetHeight;
+  let composerHeight = composer.offsetHeight;
+
+  let totalHeight = chatHeaderHeight + composerHeight;
+  let scrollerHeight = appHeight - totalHeight;
+  scroller.style.height = `${scrollerHeight}px`;
+}
 // ===== Threads UI =====
 function renderThreads(list) {
   threadListEl.innerHTML = '';
@@ -153,23 +166,81 @@ function renderThreads(list) {
 // ===== Messages UI =====
 function renderMessages() {
   scroller.innerHTML = '';
-  (activeThread?.messages || []).forEach(m => appendMessage(m.text, m.side, false));
+  (activeThread?.messages || []).forEach(m => appendMessage(m.text, m.time, m.side, m.name, activeThread.is_group, false));
+  //(activeThread?.messages || []).forEach(m => console.log(m));
   scroller.scrollTop = scroller.scrollHeight;
 }
 
-function appendMessage(text, side = 'right', push = true) {
+function appendMessage(text, time_mesage, side = 'right', senderName = 'User', isGroup, push = true) {
   const wrap = document.createElement('div');
   wrap.className = 'bubble-group';
+
+  // Create the wrapper for the sender's name and image
+  const header = document.createElement('div');
+  header.className = 'message-header';
+
+  // Add the sender's name
+  const sender = document.createElement('div');
+  sender.className = 'sender-name';
+  sender.textContent = senderName;
+
+  header.appendChild(sender);
+
+
+  // Create the message bubble
   const msg = document.createElement('div');
   msg.className = 'msg ' + (side === 'left' ? 'left' : 'right');
   msg.textContent = text;
+  if (side === 'left' && isGroup) {
+    wrap.appendChild(header);  // Insert header (sender name and image) above the message
+  }
+  // Add the message to the wrapper
   wrap.appendChild(msg);
+
+  // Create the message time
+  const time = document.createElement('div');
+  time.className = 'message-time';
+
+  // Check if the time is valid
+  let currentTime;
+  if (time_mesage && !isNaN(Date.parse(time_mesage))) {
+    currentTime = new Date(time_mesage);  // If valid time provided
+  } else {
+    currentTime = new Date();  // Use current time if invalid
+  }
+
+  // Adjust for Vietnam timezone (UTC +7)
+  currentTime.setHours(currentTime.getHours() + 7);
+
+  // Display the time in Vietnam's format
+  time.textContent = currentTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+  // Add hover event to show/hide time
+  msg.addEventListener('mouseenter', () => {
+    time.style.visibility = 'visible';
+  });
+  msg.addEventListener('mouseleave', () => {
+    time.style.visibility = 'hidden';
+  });
+
+  // Add time to the wrapper
+  wrap.appendChild(time);
+
+  // Add the message to the scrollable container
   scroller.appendChild(wrap);
+
+  // If push is true, store the message in the activeThread
   if (push) {
     activeThread.messages = activeThread.messages || [];
-    activeThread.messages.push({ side, text });
+    activeThread.messages.push({ side, text, time: currentTime, senderName });
   }
+
+  // Auto-scroll to the bottom
+  scroller.scrollTop = scroller.scrollHeight;
 }
+
+
+
 
 // ===== Tạo/ cập nhật thread nháp khi chọn người nhận =====
 function ensureDraftThread() {
@@ -224,8 +295,8 @@ function sendMessage() {
   if (isComposingNew && selectedRecipients.length > 0) {
     ensureDraftThread();
   }
-
-  appendMessage(text, 'right', true);
+  // (text, time_mesage, side = 'right', senderName = 'User', isGroup, push = true) 
+  appendMessage(text, new Date().toISOString(), 'right', null, false, true);
 
   // === Publish tin nhắn qua MQTT ===
   if (activeThread) {
@@ -234,6 +305,7 @@ function sendMessage() {
       senderId: localStorage.getItem("userId"),
       threadId: activeThread.id,
       messageType: 1, // text
+      senderName: "",
       createdAt: new Date().toISOString()
     };
     publishToRoom(activeThread.id, payload);
@@ -448,6 +520,7 @@ function selectRecipient(user) {
 // =======================================MQTT Service=======================================
 async function subscribeAllThreads() {
   for (const t of threads) {
+    console.log(`Subscribing to room ${t.id}...`);
     subscribeRoom(t.id, (msg, topic) => {
       console.log(`[${topic}]`, msg);
       const userId = localStorage.getItem("userId");
@@ -468,7 +541,8 @@ async function subscribeAllThreads() {
 
       // 3️⃣ Nếu đang mở thread đó thì append ngay vào box chat
       if (activeThread && activeThread.id === found.id) {
-        appendMessage(msg.text, "left", true); // true để push vào messages
+        // (text, time_mesage, side = 'right', senderName = 'User', isGroup, push = true) 
+        appendMessage(msg.text, new Date().toISOString(), "left", "", false, true); // true để push vào messages
         scroller.scrollTop = scroller.scrollHeight; // auto-scroll xuống cuối
       }
 
@@ -493,8 +567,8 @@ async function subscribeAllThreads() {
       }
     });
   }
-  for (const t of threads) console.log(`Subscribed to room ${t.id}`);
-  console.log(`Đã subscribe ${threads.length} phòng`);
+  // for (const t of threads) console.log(`Subscribed to room ${t.id}`);
+  // console.log(`Đã subscribe ${threads.length} phòng`);
 }
 async function subscribeAllTypingThreads() {
   for (const t of threads) {
