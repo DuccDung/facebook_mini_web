@@ -12,6 +12,7 @@
     @vite('resources/js/pages/app_personal/personalpage.js')
     @vite('resources/js/pages/app_personal/cover_img.js')
     @vite('resources/js/pages/app_personal/setup_profile.js')
+    @vite('resources/js/pages/app_personal/profile_photos.js')
 </head>
 <body>
     @include('app_chat.partials.top_bar')
@@ -43,7 +44,7 @@
                         </div>
                     </div>
                     <div class="profile-details">
-                        <h1 class="profile-name" id="personal_profile-name">Lê Ngọc</h1>
+                        <h1 class="profile-name" id="personal_profile-name"></h1>
                         <div class="friend-count">74 người bạn</div>
                     </div>
                     <div class="profile-actions">
@@ -117,12 +118,13 @@
                         <span class="card-title">Ảnh</span>
                         <span class="link-blue" id="viewAllPhotosBtn">Xem tất cả ảnh</span>
                     </div>
-                    <div class="photos-grid">
+                    {{-- <div class="photos-grid">
                         <div class="photo-thumb" style="background-image: url('messenger-clone/assets/images/1.png');"></div>
                         <div class="photo-thumb" style="background-image: url('messenger-clone/assets/images/2.png');"></div>
                         <div class="photo-thumb" style="background-image: url('messenger-clone/assets/images/3.png');"></div>
                         <div class="photo-thumb" style="background-image: url('messenger-clone/assets/images/4.png');"></div>
-                    </div>
+                    </div> --}}
+                     <div class="photos-grid" id="profilePhotosGrid"></div>
                 </div>
                 <div class="card">
                     <div class="card-header">

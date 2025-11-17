@@ -1,4 +1,4 @@
-import { uploadOnceImage , uploadImageProfile } from "../../services/media_service.js";
+import { uploadOnceImage, uploadImageProfile } from "../../services/media_service.js";
 //============================ cover photo =========================//
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -31,12 +31,26 @@ document.addEventListener("DOMContentLoaded", () => {
         formData.append("cover_photo", file);
 
         if (!profile) return;
-        uploadImageProfile(file, "cover_image", "social_network", profile.profileId).then((data) => {
+        try {
+            const data = await uploadImageProfile(
+                file,
+                "cover_image",
+                "social_network",
+                profile.profileId
+            );
+
             console.log("Ảnh bìa đã được tải lên:", data);
+
+            // cập nhật dữ liệu profile trong sessionStorage
+            profile.coverImgUrl = data.mediaUrl;
+            sessionStorage.setItem("profile", JSON.stringify(profile));
+
             showToast("Ảnh bìa đã được cập nhật thành công!");
-        }).catch((err) => {
+        } catch (err) {
             console.error("Lỗi khi tải ảnh lên:", err);
-        });
+            showToast("Lỗi khi tải ảnh lên, vui lòng thử lại!");
+        }
+
 
     });
 

@@ -2993,3 +2993,24 @@ body.dark-mode i {
   color: gray;
   font-size: 13px;
 }
+
+
+/* photos */
+.photos-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* hoặc 3 tùy bạn */
+  gap: 4px;
+}
+
+.photo-thumb {
+  width: 100%;
+  aspect-ratio: 1 / 1;       /* giữ ô vuông, có thể bỏ nếu không cần */
+  overflow: hidden;
+}
+
+.photo-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;        /* ✅ hiện đầy đủ ảnh, không cắt */
+  /* nếu muốn giống FB (có crop cho đẹp), dùng: object-fit: cover; */
+}

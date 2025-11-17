@@ -45,3 +45,32 @@ export async function uploadImageProfile(file, type, folder = "social_network", 
     throw error;
   }
 }
+
+export const getImageDemo = async (profileId) => {
+  try {
+    const res = await API.get('/api/Media/get/images-demo', {
+      params: {
+        asset_id: profileId,
+      }
+    });
+    return res.data;
+  } catch (error) {
+    console.error("Error in resendConfirmMailService:", error);
+    throw error;
+  }
+}
+
+// /api/Media/get/update-bacground-img?mediaId=s
+export const updateBackgroundImg = async (mediaId) => {
+  try {
+    const res = await API.get('/api/Media/get/update-bacground-img', {
+      params: {
+        mediaId: mediaId,
+      }
+    });
+    return res.data;
+  } catch (error) {
+    console.error("Error in resendConfirmMailService:", error);
+    throw error;
+  }
+}
