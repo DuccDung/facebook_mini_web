@@ -5,9 +5,9 @@ import axios from "axios";
 //http://localhost:5000
 const API = axios.create({
   baseURL: "http://localhost:5000", // đây là domain 
-  headers: {
-    "Content-Type": "application/json",
-  },
+  // headers: {
+  //   "Content-Type": "application/json",
+  // },
   withCredentials: true, // rất quan trọng nếu dùng cookie (Laravel Sanctum / session)
 });
 

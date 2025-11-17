@@ -60,7 +60,7 @@ export function connectMqtt({
 export function subscribeRoom(roomId, handler, { qos = 1 } = {}) {
   if (!client) throw new Error("MQTT client not connected");
   const topic = `chat/room/${roomId}`;
-
+  
   client.subscribe(topic, { qos }, (err) => {
     if (err) console.error("Subscribe error:", err);
   });

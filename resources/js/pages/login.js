@@ -112,10 +112,10 @@ import { domain } from "../utils/domain.js";
               localStorage.setItem('account', JSON.stringify(data.account));
               localStorage.setItem('userId', data.account.accountId);
               localStorage.setItem('email', data.account.email);
-
+              console.log("login.js - login thành công:", data.account.accountName);
               // Đăng nhập tcong chuyển sang Home
               setTimeout(() => {
-                window.location.href = "/home"; // Laravel route
+                window.location.href = "/personal"; // Laravel route
               }, 800);
             } else {
               showMessage('Sai email hoặc mật khẩu.', 'error');
