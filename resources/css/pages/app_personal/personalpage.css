@@ -52,7 +52,8 @@ body {
     background: var(--card);
     border-bottom: 1px solid var(--border);
     display: grid;
-    grid-template-columns: 1fr auto 1fr; /* 3 vùng: trái - giữa - phải */
+    grid-template-columns: 1fr auto 1fr;
+    /* 3 vùng: trái - giữa - phải */
     align-items: center;
     padding: 0 12px;
     position: fixed;
@@ -221,6 +222,7 @@ body {
 
 /* --- Responsive: Giữ kích thước ổn định trên mọi màn hình --- */
 @media (max-width: 768px) {
+
     /* Ẩn phần trung tâm */
     .top-center {
         display: none;
@@ -1422,188 +1424,246 @@ body {
 }
 
 /* POST WRAPPER */
-.fbx-post{
-    width:100%;
-    max-width:700px;
-    background:#fff;
-    border-radius:10px;
-    padding:15px;
-    margin:auto;
-    position:relative;
-    box-shadow:0 2px 5px rgba(0,0,0,0.1);
+.fbx-post {
+    width: 100%;
+    max-width: 700px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    margin: auto;
+    position: relative;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 /* HEADER */
-.fbx-header{display:flex;gap:10px;}
-.fbx-avatar{width:40px;height:40px;border-radius:50%;}
-.fbx-meta{flex:1;}
-.fbx-author span{color:gray;font-weight:400;}
-.fbx-time{color:gray;font-size:13px;}
+.fbx-header {
+    display: flex;
+    gap: 10px;
+}
+
+.fbx-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.fbx-meta {
+    flex: 1;
+}
+
+.fbx-author span {
+    color: gray;
+    font-weight: 400;
+}
+
+.fbx-time {
+    color: gray;
+    font-size: 13px;
+}
 
 /* MEDIA */
-.fbx-media{
-    margin-top:10px;
-    height:420px;
-    background:#b71c1c;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    border-radius:10px;
-    color:#fff;
-    font-size:22px;
+.fbx-media {
+    margin-top: 10px;
+    height: 420px;
+    background: #b71c1c;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 22px;
 }
 
 /* REACTION BAR – dùng emoji */
-.fbx-reaction-bar{
-    position:absolute;
-    bottom:90px;      /* nằm trên thanh nút */
-    left:70px;
-    display:none;
-    gap:6px;
-    background:#fff;
-    padding:6px 10px;
-    border-radius:30px;
-    box-shadow:0 4px 18px rgba(0,0,0,.25);
-    z-index:99999;
+.fbx-reaction-bar {
+    position: absolute;
+    bottom: 90px;
+    /* nằm trên thanh nút */
+    left: 70px;
+    display: none;
+    gap: 6px;
+    background: #fff;
+    padding: 6px 10px;
+    border-radius: 30px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, .25);
+    z-index: 99999;
 }
-.fbx-react{
-    font-size:26px;
-    cursor:pointer;
-    transition:.15s;
+
+.fbx-react {
+    font-size: 26px;
+    cursor: pointer;
+    transition: .15s;
 }
-.fbx-react:hover{
-    transform:translateY(-8px) scale(1.25);
+
+.fbx-react:hover {
+    transform: translateY(-8px) scale(1.25);
 }
 
 /* STATS */
-.fbx-stats{
-    margin-top:12px;
-    display:flex;
-    justify-content:space-between;
-    color:gray;
+.fbx-stats {
+    margin-top: 12px;
+    display: flex;
+    justify-content: space-between;
+    color: gray;
 }
 
 /* ACTION BAR */
-.fbx-actions{
-    display:flex;
-    justify-content:space-around;
-    padding:12px 0;
-}
-.fbx-actions button{
-    padding:10px 22px;           /* to hơn một chút */
-    border:none;
-    background:none;
-    border-radius:6px;
-    cursor:pointer;
-
-    display:flex;
-    align-items:center;
-    gap:6px;
-
-    font-size:15.5px;            /* tăng cỡ chữ */
-    font-weight:600;             /* đậm giống FB */
-    color:#65676b;               /* trùng màu chữ "1 bình luận" */
-}
-.fbx-actions button:hover{background:#f0f2f5;}
-
-.fbx-actions button i{
-    font-size:18px;
-    color:#65676b;               /* icon cùng màu chữ */
+.fbx-actions {
+    display: flex;
+    justify-content: space-around;
+    padding: 12px 0;
 }
 
-.fbx-actions button span{
-    color:#65676b;
+.fbx-actions button {
+    padding: 10px 22px;
+    /* to hơn một chút */
+    border: none;
+    background: none;
+    border-radius: 6px;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    font-size: 15.5px;
+    /* tăng cỡ chữ */
+    font-weight: 600;
+    /* đậm giống FB */
+    color: #65676b;
+    /* trùng màu chữ "1 bình luận" */
 }
 
-.fbx-actions button:hover{
-    background:#f0f2f5;
+.fbx-actions button:hover {
+    background: #f0f2f5;
 }
+
+.fbx-actions button i {
+    font-size: 18px;
+    color: #65676b;
+    /* icon cùng màu chữ */
+}
+
+.fbx-actions button span {
+    color: #65676b;
+}
+
+.fbx-actions button:hover {
+    background: #f0f2f5;
+}
+
 /* COMMENT LIST + ITEM */
-#fbxCommentList{margin-top:4px;}
-.fbx-comment-item{
-    display:flex;
-    gap:10px;
-    margin:10px 0;
+#fbxCommentList {
+    margin-top: 4px;
 }
-.fbx-comment-item .bubble{
-    background:#f0f2f5;
-    padding:10px 14px;
-    border-radius:18px;
-    max-width:80%;
+
+.fbx-comment-item {
+    display: flex;
+    gap: 10px;
+    margin: 10px 0;
 }
-.fbx-cavatar{width:32px;height:32px;border-radius:50%;}
+
+.fbx-comment-item .bubble {
+    background: #f0f2f5;
+    padding: 10px 14px;
+    border-radius: 18px;
+    max-width: 80%;
+}
+
+.fbx-cavatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
 
 /* COMMENT INPUT */
-.fbx-comment-box{
-    display:flex;
-    gap:10px;
-    margin-top:8px;
+.fbx-comment-box {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
 }
-.fbx-comment-box input{
-    flex:1;
-    padding:10px 16px;
-    border-radius:20px;
-    border:1px solid #ccc;
+
+.fbx-comment-box input {
+    flex: 1;
+    padding: 10px 16px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
 }
 
 /* SHARE POPUP */
-.fbx-share-popup{
-    position:fixed;
-    inset:0;
-    display:none;
-    justify-content:center;
-    align-items:center;
-    background:rgba(0,0,0,.45);
-    z-index:999999;
+.fbx-share-popup {
+    position: fixed;
+    inset: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, .45);
+    z-index: 999999;
 }
-.fbx-share-content{
-    width:420px;
-    background:#fff;
-    padding:20px;
-    border-radius:12px;
+
+.fbx-share-content {
+    width: 420px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
 }
-.fbx-share-content textarea{
-    width:100%;
-    height:80px;
-    resize:none;
-    padding:10px;
-    margin-top:10px;
+
+.fbx-share-content textarea {
+    width: 100%;
+    height: 80px;
+    resize: none;
+    padding: 10px;
+    margin-top: 10px;
 }
-.fbx-share-label{font-size:14px;font-weight:600;}
+
+.fbx-share-label {
+    font-size: 14px;
+    font-weight: 600;
+}
+
 .fbx-share-select,
-.fbx-share-friend{
-    width:100%;
-    padding:8px 10px;
-    margin-top:6px;
-    border-radius:8px;
-    border:1px solid #ccc;
+.fbx-share-friend {
+    width: 100%;
+    padding: 8px 10px;
+    margin-top: 6px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
 }
-.fbx-share-actions{
-    margin-top:12px;
-    display:flex;
-    justify-content:flex-end;
-    gap:8px;
+
+.fbx-share-actions {
+    margin-top: 12px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
 }
-.fbx-share-actions button{
-    padding:8px 14px;
-    border:none;
-    border-radius:6px;
-    cursor:pointer;
+
+.fbx-share-actions button {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
 }
-#fbxShareSend{background:#1877f2;color:#fff;}
-#fbxShareClose{background:#f0f2f5;}
+
+#fbxShareSend {
+    background: #1877f2;
+    color: #fff;
+}
+
+#fbxShareClose {
+    background: #f0f2f5;
+}
 
 /* TOAST */
-.fbx-toast{
-    position:fixed;
-    bottom:20px;
-    right:20px;
-    background:#333;
-    color:#fff;
-    padding:12px 18px;
-    border-radius:8px;
-    display:none;
-    z-index:9999999;
+.fbx-toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #333;
+    color: #fff;
+    padding: 12px 18px;
+    border-radius: 8px;
+    display: none;
+    z-index: 9999999;
 }
 
 
@@ -2000,7 +2060,7 @@ body.dark-mode i {
 .avatar-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
 }
 
 .avatar-popup {
@@ -2103,7 +2163,8 @@ body.dark-mode i {
 /* ==== GRID LIST FRIENDS ==== */
 .friend-list {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);  /* Mặc định 2 cột trên màn hình lớn */
+    grid-template-columns: repeat(2, 1fr);
+    /* Mặc định 2 cột trên màn hình lớn */
     gap: 20px 24px;
     margin-top: 10px;
 }
@@ -2186,7 +2247,7 @@ body.dark-mode i {
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     width: 260px;
     display: none;
     z-index: 50;
@@ -2239,16 +2300,26 @@ body.dark-mode i {
     border-radius: 8px;
     font-size: 15px;
     animation: fadeIn 0.3s ease, fadeOut 0.3s ease 2.3s forwards;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
 }
 
 @keyframes fadeIn {
-    from {opacity: 0; transform: translateY(10px);}
-    to {opacity: 1; transform: translateY(0);}
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes fadeOut {
-    to {opacity: 0; transform: translateY(10px);}
+    to {
+        opacity: 0;
+        transform: translateY(10px);
+    }
 }
 
 
@@ -2310,6 +2381,7 @@ body.dark-mode i {
         grid-template-columns: repeat(2, 1fr);
         gap: 10px;
     }
+
     .photo-grid-big img {
         height: 150px;
     }
@@ -2386,6 +2458,7 @@ body.dark-mode i {
     font-size: 18px;
     color: var(--accent-blue);
 }
+
 .edit-block {
     background: var(--bg-secondary);
     border: 1px solid var(--border);
@@ -2439,6 +2512,7 @@ body.dark-mode i {
     color: var(--accent-blue);
     cursor: pointer;
 }
+
 .checkbox-line {
     display: flex;
     align-items: center;
@@ -2446,10 +2520,12 @@ body.dark-mode i {
     font-size: 15px;
     margin-bottom: 15px;
 }
+
 .checkbox-line input {
     width: 16px;
     height: 16px;
 }
+
 .saved-item {
     display: flex;
     align-items: flex-start;
@@ -2494,7 +2570,7 @@ body.dark-mode i {
     border-radius: 8px;
     width: 120px;
     display: none;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 .menu-dropdown div {
@@ -2521,7 +2597,8 @@ body.dark-mode i {
 /* Layout 2 cột */
 .about-layout {
     display: flex;
-    gap: 32px; /* match spacing friend page */
+    gap: 32px;
+    /* match spacing friend page */
     width: 100%;
     margin-top: 10px;
 }
@@ -2595,7 +2672,7 @@ body.dark-mode i {
 .post-creator-modal {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.6);
+    background: rgba(0, 0, 0, 0.6);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -2605,8 +2682,10 @@ body.dark-mode i {
 /* POPUP */
 .post-creator-popup {
     width: 500px;
-    max-height: 85vh;            /* 🔥 Không tràn màn hình */
-    overflow-y: auto;            /* 🔥 Scroll khi nội dung dài */
+    max-height: 85vh;
+    /* 🔥 Không tràn màn hình */
+    overflow-y: auto;
+    /* 🔥 Scroll khi nội dung dài */
     background: #fff;
     border-radius: 12px;
     padding: 15px;
@@ -2621,6 +2700,7 @@ body.dark-mode i {
     border: none;
     cursor: pointer;
 }
+
 .close-btn:hover {
     background: #d8dadf;
 }
@@ -2639,6 +2719,7 @@ body.dark-mode i {
     align-items: center;
     margin-top: 15px;
 }
+
 .post-creator-user-avatar {
     width: 46px;
     height: 46px;
@@ -2676,6 +2757,7 @@ body.dark-mode i {
     cursor: pointer;
     font-size: 14px;
 }
+
 .add-img-btn i {
     color: #45bd62;
 }
@@ -2683,7 +2765,8 @@ body.dark-mode i {
 /* Preview ảnh */
 .post-image-preview img {
     width: 100%;
-    max-height: 350px;        /* 🔥 Giới hạn chiều cao preview */
+    max-height: 350px;
+    /* 🔥 Giới hạn chiều cao preview */
     object-fit: cover;
     border-radius: 10px;
     margin-top: 10px;
@@ -2704,17 +2787,22 @@ body.dark-mode i {
 /* Bài viết */
 .fbx-post {
     width: 100%;
-    max-width: 680px;          /* 🔥 giới hạn chiều rộng */
-    margin: 0 auto 22px;       /* căn giữa + khoảng cách với bài dưới */
+    max-width: 680px;
+    /* 🔥 giới hạn chiều rộng */
+    margin: 0 auto 22px;
+    /* căn giữa + khoảng cách với bài dưới */
     background: #fff;
     padding-bottom: 12px;
     border-radius: 10px;
 }
+
 /* Khung chứa ảnh */
 .fbx-media {
     width: 100%;
-    max-height: 480px;      /* 🔥 bạn có thể chỉnh 400, 450, 500 tùy ý */
-    overflow: hidden;       /* phần vượt ra ngoài bị ẩn đi */
+    max-height: 480px;
+    /* 🔥 bạn có thể chỉnh 400, 450, 500 tùy ý */
+    overflow: hidden;
+    /* phần vượt ra ngoài bị ẩn đi */
     border-radius: 10px;
 }
 
@@ -2723,7 +2811,8 @@ body.dark-mode i {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    background: #000; /* cho nền đen giống FB khi ảnh không lấp đầy */
+    background: #000;
+    /* cho nền đen giống FB khi ảnh không lấp đầy */
     display: block;
 }
 
@@ -2734,229 +2823,231 @@ body.dark-mode i {
 
 /* STATS + DIVIDER */
 .fbx-stats {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 6px 12px 0;
-  font-size: 14px;
-  color: #65676b;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 12px 0;
+    font-size: 14px;
+    color: #65676b;
 }
 
 .fbx-divider {
-  border-top: 1px solid #dddfe2;
-  margin: 6px 12px 0;
+    border-top: 1px solid #dddfe2;
+    margin: 6px 12px 0;
 }
 
 /* BAR ACTION */
 .fbx-actions {
-  display: flex;
-  justify-content: space-around;
-  padding: 4px 8px 0;
+    display: flex;
+    justify-content: space-around;
+    padding: 4px 8px 0;
 }
 
 .fbx-act-btn {
-  flex: 1;
-  border: none;
-  background: transparent;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 0;
-  cursor: pointer;
-  border-radius: 6px;
-  color: #65676b;
-  font-size: 15px;
+    flex: 1;
+    border: none;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 0;
+    cursor: pointer;
+    border-radius: 6px;
+    color: #65676b;
+    font-size: 15px;
 }
 
 .fbx-act-btn:hover {
-  background: #f0f2f5;
+    background: #f0f2f5;
 }
 
 /* trạng thái đã like */
 .fbx-like-btn.active-like .fbx-like-icon,
 .fbx-like-btn.active-like .fbx-like-label {
-  color: #1877f2;
+    color: #1877f2;
 }
 
-.fbx-like-icon { font-size: 18px; }
+.fbx-like-icon {
+    font-size: 18px;
+}
 
 /* REACTION BAR */
 .fbx-reaction-bar {
-  position: absolute;
-  margin-left: 10px;
-  margin-top: -40px;
-  background: #fff;
-  border-radius: 24px;
-  padding: 4px 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,.15);
-  display: flex;
-  gap: 6px;
-  z-index: 10;
+    position: absolute;
+    margin-left: 10px;
+    margin-top: -40px;
+    background: #fff;
+    border-radius: 24px;
+    padding: 4px 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .15);
+    display: flex;
+    gap: 6px;
+    z-index: 10;
 }
 
 .fbx-react {
-  font-size: 22px;
-  cursor: pointer;
+    font-size: 22px;
+    cursor: pointer;
 }
 
 /* COMMENT LIST + INPUT */
 .fbx-comment-area {
-  padding: 4px 12px 10px;
+    padding: 4px 12px 10px;
 }
 
 .fbx-comment-list {
-  margin-top: 4px;
+    margin-top: 4px;
 }
 
 .fbx-comment-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  margin-bottom: 6px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 6px;
 }
 
 .fbx-comment-bubble {
-  background: #f0f2f5;
-  border-radius: 18px;
-  padding: 8px 12px;
-  max-width: 520px;
+    background: #f0f2f5;
+    border-radius: 18px;
+    padding: 8px 12px;
+    max-width: 520px;
 }
 
 .fbx-comment-author {
-  font-weight: 600;
-  margin-bottom: 2px;
+    font-weight: 600;
+    margin-bottom: 2px;
 }
 
 .fbx-comment-text {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 .fbx-cavatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
 }
 
 /* ô nhập bình luận */
 .fbx-comment-input-wrap {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 6px;
 }
 
 .fbx-comment-input {
-  flex: 1;
-  border: none;
-  background: #f0f2f5;
-  border-radius: 20px;
-  padding: 8px 12px;
-  font-size: 14px;
+    flex: 1;
+    border: none;
+    background: #f0f2f5;
+    border-radius: 20px;
+    padding: 8px 12px;
+    font-size: 14px;
 }
 
 /* ---------------- SHARE POPUP ---------------- */
 .fbx-share-popup {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.55);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 99999;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
 }
 
 .fbx-share-box {
-  width: 410px;
-  background: #fff;
-  border-radius: 10px;
-  padding: 18px 20px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-  animation: fadeIn 0.15s ease-out;
+    width: 410px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 18px 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    animation: fadeIn 0.15s ease-out;
 }
 
 .fbx-share-box h3 {
-  margin: 0 0 10px 0;
-  font-size: 20px;
-  font-weight: 700;
+    margin: 0 0 10px 0;
+    font-size: 20px;
+    font-weight: 700;
 }
 
 .fbx-share-target {
-  width: 100%;
-  padding: 10px 14px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 15px;
-  margin-bottom: 12px;
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    margin-bottom: 12px;
 }
 
 .fbx-share-text {
-  width: 100%;
-  height: 110px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 10px 12px;
-  font-size: 15px;
-  resize: none;
-  margin-bottom: 15px;
+    width: 100%;
+    height: 110px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 15px;
+    resize: none;
+    margin-bottom: 15px;
 }
 
 .fbx-share-friend {
-  width: 100%;
-  padding: 10px 14px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 15px;
-  margin-bottom: 12px;
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    margin-bottom: 12px;
 }
 
 .fbx-share-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
 }
 
 .fbx-share-send {
-  background: #1877f2;
-  color: #fff;
-  padding: 9px 18px;
-  border-radius: 8px;
-  border: none;
-  font-size: 15px;
-  cursor: pointer;
+    background: #1877f2;
+    color: #fff;
+    padding: 9px 18px;
+    border-radius: 8px;
+    border: none;
+    font-size: 15px;
+    cursor: pointer;
 }
 
 .fbx-share-close {
-  background: #e4e6eb;
-  padding: 9px 16px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  font-size: 15px;
+    background: #e4e6eb;
+    padding: 9px 16px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
 }
 
 /* SUCCESS TOAST */
 .fbx-toast {
-  position: fixed;
-  bottom: 25px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #222;
-  color: #fff;
-  padding: 10px 18px;
-  border-radius: 8px;
-  display: none;
-  font-size: 15px;
-  z-index: 999999;
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #222;
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 8px;
+    display: none;
+    font-size: 15px;
+    z-index: 999999;
 }
 
 
 /* ảnh trang chủ*/
 .friends-preview {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 14px;
-  margin-top: 12px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-top: 12px;
 }
 
 /* Khung từng bạn bè */
@@ -2969,9 +3060,12 @@ body.dark-mode i {
     display: block;
     /* khung cố định, ảnh tự co bên trong */
     width: 100%;
-    height: 160px;          /* chỉnh 120–160px tuỳ bạn */
-    object-fit: cover;      /* hoặc contain nếu muốn thấy hết ảnh, không cắt */
-    border-radius: 12px;    /* bo góc hình chữ nhật */
+    height: 160px;
+    /* chỉnh 120–160px tuỳ bạn */
+    object-fit: cover;
+    /* hoặc contain nếu muốn thấy hết ảnh, không cắt */
+    border-radius: 12px;
+    /* bo góc hình chữ nhật */
 }
 
 /* Nếu bạn đang dùng class khác cho ảnh (vd: .friend-avatar) thì thêm luôn: */
@@ -2985,32 +3079,72 @@ body.dark-mode i {
 
 
 .friend-preview-name {
-  margin-top: 6px;
-  font-weight: 600;
+    margin-top: 6px;
+    font-weight: 600;
 }
 
 .friend-preview-mutual {
-  color: gray;
-  font-size: 13px;
+    color: gray;
+    font-size: 13px;
 }
 
 
 /* photos */
 .photos-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* hoặc 3 tùy bạn */
-  gap: 4px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* hoặc 3 tùy bạn */
+    gap: 4px;
 }
 
 .photo-thumb {
-  width: 100%;
-  aspect-ratio: 1 / 1;       /* giữ ô vuông, có thể bỏ nếu không cần */
-  overflow: hidden;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    /* giữ ô vuông, có thể bỏ nếu không cần */
+    overflow: hidden;
 }
 
 .photo-thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;        /* ✅ hiện đầy đủ ảnh, không cắt */
-  /* nếu muốn giống FB (có crop cho đẹp), dùng: object-fit: cover; */
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* ✅ hiện đầy đủ ảnh, không cắt */
+    /* nếu muốn giống FB (có crop cho đẹp), dùng: object-fit: cover; */
+}
+
+
+/* search friend */
+.search-box {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.search-box input {
+    flex: 1;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.search-user-result {
+    display: grid;
+    gap: 12px;
+}
+
+.search-user-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px;
+    border: 1px solid var(--divider);
+    border-radius: 10px;
+}
+
+.search-user-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
 }

@@ -1,8 +1,10 @@
-import { getImageDemo , uploadOnceImage, uploadImageProfile , updateBackgroundImg} from '../../services/media_service.js';
+import { getImageDemo, uploadOnceImage, uploadImageProfile, updateBackgroundImg } from '../../services/media_service.js';
+import { getFriends } from "../../services/friend_service.js";
 // ========================= FULL SCRIPT (đã sửa) =========================
 
-  const profileMenu = document.getElementById('profileMenu');
-  const allMenuViews = document.querySelectorAll('.menu-view');
+const profileMenu = document.getElementById('profileMenu');
+const allMenuViews = document.querySelectorAll('.menu-view');
+const userId = localStorage.getItem('userId');
 document.addEventListener('DOMContentLoaded', function () {
   // ====================== TIỆN ÍCH NHANH ======================
   // const qs = (sel, root = document) => root.querySelector(sel);
@@ -218,7 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Danh sách ảnh đã upload
 let uploadedImages = [];
-  const profile = JSON.parse(sessionStorage.getItem('profile'));
+const profile = JSON.parse(sessionStorage.getItem('profile'));
 // ====================== POPUP CHỌN ẢNH ĐẠI DIỆN ======================
 async function loadAvatarPhotos() {
   const suggested = document.getElementById("suggestedPhotos");
@@ -236,22 +238,22 @@ async function loadAvatarPhotos() {
     .join("");
 
   // ====================== EVENT CHỌN ẢNH ĐẠI DIỆN ======================
-document.querySelectorAll(".avatar-choice").forEach(img => {
-  img.addEventListener("click", async () => {
-    console.log("Chọn ảnh đại diện:", img.dataset.mediaId);
-    const mediaId = img.dataset.mediaId;
-    const profilePic = document.querySelector(".profile-pic");
-    // ---- ĐỔI UI NGAY ----
-    profilePic.innerHTML = `
+  document.querySelectorAll(".avatar-choice").forEach(img => {
+    img.addEventListener("click", async () => {
+      console.log("Chọn ảnh đại diện:", img.dataset.mediaId);
+      const mediaId = img.dataset.mediaId;
+      const profilePic = document.querySelector(".profile-pic");
+      // ---- ĐỔI UI NGAY ----
+      profilePic.innerHTML = `
       <img src="${img.src}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
     `;
-    document.getElementById("avatarPickerModal").classList.remove("show");
+      document.getElementById("avatarPickerModal").classList.remove("show");
 
-    // ---- GỌI API UPDATE AVATAR ----
-    let result = await updateBackgroundImg(mediaId);
-    console.log("Kết quả cập nhật ảnh đại diện:", result);
+      // ---- GỌI API UPDATE AVATAR ----
+      let result = await updateBackgroundImg(mediaId);
+      console.log("Kết quả cập nhật ảnh đại diện:", result);
+    });
   });
-});
 
 }
 
@@ -287,10 +289,10 @@ document.addEventListener("DOMContentLoaded", () => {
     fileInput.click(); // mở hộp thoại chọn ảnh
   });
 
-  fileInput.addEventListener("change",async function () {
+  fileInput.addEventListener("change", async function () {
     const file = this.files[0];
     if (!file) return;
-    let ImgUpload =await uploadOnceImage(file, "social_network", profile.profileId);
+    let ImgUpload = await uploadOnceImage(file, "social_network", profile.profileId);
     const reader = new FileReader();
     reader.onload = function (e) {
       uploadedImages.unshift(ImgUpload);   // lưu base64
@@ -1571,40 +1573,22 @@ document.addEventListener("click", (e) => {
 
 
 // hiển thị bạn bè trên trang
-const friendsPreview = [
-  {
-    name: "Hue Do",
-    avatar: "messenger-clone/assets/images/contact-2.png",
-    mutual: 6
-  },
-  {
-    name: "Anh Việt",
-    avatar: "messenger-clone/assets/images/contact-1.png",
-    mutual: 3
-  },
-  {
-    name: "Thúy Nguyễn",
-    avatar: "messenger-clone/assets/images/contact-3.png",
-    mutual: 4
-  },
-  {
-    name: "Lê Văn Hùng",
-    avatar: "messenger-clone/assets/images/contact-4.png",
-    mutual: 5
-  }
-];
-
+const friendCount = document.querySelectorAll(".friend-count");
+const friendsPreview = await getFriends(userId);
 function renderFriendsPreview() {
   const container = document.getElementById("friends-preview");
   if (!container) return;
-
+  const defaultAvatar = "{{ Vite::asset('resources/assets/app_chat/images/user-default.png') }}";
   let html = "";
-  friendsPreview.forEach(f => {
+  friendCount.forEach(el => {
+    el.textContent = friendsPreview.count + " bạn bè";
+  });
+  friendsPreview.info.forEach(f => {
     html += `
-      <div class="friend-preview-item">
-        <img src="${f.avatar}">
-        <div class="friend-preview-name">${f.name}</div>
-        <div class="friend-preview-mutual">${f.mutual} bạn chung</div>
+      <div class="friend-preview-item" data-account-id="${f.userId}">
+        <img src="${f.avatarUrl || defaultAvatar}">
+        <div class="friend-preview-name">${f.userName}</div>
+        <div class="friend-preview-mutual">${f.mutualFriends > 0 ? `${f.mutualFriends} bạn chung` : ''}</div>
       </div>
     `;
   });

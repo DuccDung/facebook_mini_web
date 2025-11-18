@@ -25,13 +25,12 @@ Route::get('/login', function () {
     return view('auth/login');
 });
 
-// Route::get('/home', function () {
-//     return view('auth/home');
-// });
 Route::get('/personal', function () {
     return view('app_personal/layouts/app_personal');
 });
-
+Route::get('/home', function () {
+    return view('app_home/layouts/app_home');
+});
 Route::get('/chat', function () {
     return view('app_chat/layouts/app_chat');
 });

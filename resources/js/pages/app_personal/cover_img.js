@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // cập nhật dữ liệu profile trong sessionStorage
             profile.coverImgUrl = data.mediaUrl;
             sessionStorage.setItem("profile", JSON.stringify(profile));
-
+            
             showToast("Ảnh bìa đã được cập nhật thành công!");
         } catch (err) {
             console.error("Lỗi khi tải ảnh lên:", err);

@@ -13,7 +13,9 @@
     @vite('resources/js/pages/app_personal/cover_img.js')
     @vite('resources/js/pages/app_personal/setup_profile.js')
     @vite('resources/js/pages/app_personal/profile_photos.js')
+    @vite('resources/js/pages/app_personal/friend_ship.js')
 </head>
+
 <body>
     @include('app_chat.partials.top_bar')
     {{-- <div class="app">
@@ -24,8 +26,8 @@
         @include('app_chat.partials.chat_pane')
     </div> --}}
 
-     <div class="main-container">
-        
+    <div class="main-container">
+
         <div class="cover-photo-container">
             <div class="cover-photo">
                 <div class="add-cover-btn">
@@ -45,7 +47,7 @@
                     </div>
                     <div class="profile-details">
                         <h1 class="profile-name" id="personal_profile-name"></h1>
-                        <div class="friend-count">74 người bạn</div>
+                        <div class="friend-count"></div>
                     </div>
                     <div class="profile-actions">
                         <button class="btn btn-primary"><i class="fas fa-plus"></i> Thêm vào tin</button>
@@ -60,9 +62,11 @@
                     <div class="p-nav-item">Ảnh</div>
                     <div class="p-nav-item">Reels</div>
                     <div class="p-nav-item">Check in</div>
-                    <div class="p-nav-item p-nav-more">Xem thêm <i class="fas fa-caret-down" style="margin-left: 6px;"></i></div>
+                    <div class="p-nav-item p-nav-more">Xem thêm <i class="fas fa-caret-down"
+                            style="margin-left: 6px;"></i></div>
                     <div style="flex-grow: 1;"></div>
-                    <div class="btn btn-secondary" style="width: 48px;"><i class="fas fa-ellipsis-h" style="margin:0;"></i></div>
+                    <div class="btn btn-secondary" style="width: 48px;"><i class="fas fa-ellipsis-h"
+                            style="margin:0;"></i></div>
                 </div>
             </div>
         </div>
@@ -79,9 +83,7 @@
                     </div>
 
                     <!-- Nút Thêm/Chỉnh sửa tiểu sử (lúc đầu chỉ hiện nút này) -->
-                    <button id="openBioEditor"
-                            class="btn btn-secondary"
-                            style="width: 100%; margin-bottom: 16px;">
+                    <button id="openBioEditor" class="btn btn-secondary" style="width: 100%; margin-bottom: 16px;">
                         Thêm tiểu sử
                     </button>
 
@@ -105,7 +107,7 @@
                             <button id="saveBio" class="btn btn-primary" disabled>Lưu</button>
                         </div>
                     </div>
-                    
+
                     <button class="btn btn-secondary btn-edit-details" style="width: 100%; margin-bottom: 16px;">
                         Chỉnh sửa chi tiết
                     </button>
@@ -114,28 +116,36 @@
                 </div>
 
                 <div class="card">
-                     <div class="card-header">
+                    <div class="card-header">
                         <span class="card-title">Ảnh</span>
                         <span class="link-blue" id="viewAllPhotosBtn">Xem tất cả ảnh</span>
                     </div>
-                    {{-- <div class="photos-grid">
-                        <div class="photo-thumb" style="background-image: url('messenger-clone/assets/images/1.png');"></div>
-                        <div class="photo-thumb" style="background-image: url('messenger-clone/assets/images/2.png');"></div>
-                        <div class="photo-thumb" style="background-image: url('messenger-clone/assets/images/3.png');"></div>
-                        <div class="photo-thumb" style="background-image: url('messenger-clone/assets/images/4.png');"></div>
-                    </div> --}}
-                     <div class="photos-grid" id="profilePhotosGrid"></div>
+                    <div class="photos-grid" id="profilePhotosGrid"></div>
                 </div>
                 <div class="card">
                     <div class="card-header">
-                       <span class="card-title">Bạn bè</span>
-                       <span class="link-blue" id="viewAllFriendsBtn">Xem tất cả bạn bè</span>
-                   </div>
-                   <div style="color: var(--text-secondary);">74 người bạn</div>
+                        <span class="card-title">Bạn bè</span>
+                        <span class="link-blue" id="viewAllFriendsBtn">Xem tất cả bạn bè</span>
+                    </div>
+                    <div style="color: var(--text-secondary);" class="friend-count">Bạn bè</div>
 
-                   <!-- nơi render danh sách -->
+                    <!-- nơi render danh sách -->
                     <div id="friends-preview" class="friends-preview"></div>
-               </div>
+                </div>
+               
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">Tìm kiếm người dùng</span>
+                    </div>
+
+                    <div class="search-box">
+                        <input id="searchUserInput" type="text" placeholder="Tìm kiếm theo tên..." />
+                        <button id="searchUserBtn" class="btn btn-primary">Tìm</button>
+                    </div>
+
+                    <div id="searchUserResult" class="search-user-result"></div>
+                </div>
+
             </div>
 
             <div class="col-right">
@@ -145,8 +155,10 @@
                         <div class="composer-input">Bạn đang nghĩ gì?</div>
                     </div>
                     <div class="composer-actions">
-                        <div class="c-action"><i class="fas fa-video" style="color: #f02849;"></i> Video trực tiếp</div>
-                        <div class="c-action c-action-photo"><i class="fas fa-images" style="color: #45bd62;"></i> Ảnh/video</div>
+                        <div class="c-action"><i class="fas fa-video" style="color: #f02849;"></i> Video trực tiếp
+                        </div>
+                        <div class="c-action c-action-photo"><i class="fas fa-images" style="color: #45bd62;"></i>
+                            Ảnh/video</div>
                         <div class="c-action"><i class="fas fa-flag" style="color: #36a4fa;"></i> Cột mốc</div>
                     </div>
                 </div>
@@ -159,10 +171,16 @@
                     </div>
                 </div>
 
-                 <div class="card" style="padding: 0; overflow: hidden;">
+                <div class="card" style="padding: 0; overflow: hidden;">
                     <div style="display: flex; border-bottom: 1px solid var(--divider);">
-                        <div style="flex: 1; padding: 12px; text-align: center; font-weight: 600; color: var(--accent-blue); border-bottom: 3px solid var(--accent-blue);"><i class="fas fa-bars"></i> Chế độ xem danh sách</div>
-                        <div style="flex: 1; padding: 12px; text-align: center; font-weight: 600; color: var(--text-secondary); cursor: pointer;"><i class="fas fa-th-large"></i> Chế độ xem lưới</div>
+                        <div
+                            style="flex: 1; padding: 12px; text-align: center; font-weight: 600; color: var(--accent-blue); border-bottom: 3px solid var(--accent-blue);">
+                            <i class="fas fa-bars"></i> Chế độ xem danh sách
+                        </div>
+                        <div
+                            style="flex: 1; padding: 12px; text-align: center; font-weight: 600; color: var(--text-secondary); cursor: pointer;">
+                            <i class="fas fa-th-large"></i> Chế độ xem lưới
+                        </div>
                     </div>
                 </div>
                 <div id="post-list"></div>
@@ -189,12 +207,12 @@
 
                     <!-- REACTION BAR (emoji) -->
                     <div class="fbx-reaction-bar" id="fbxReactionBar">
-                        <span data-type="like"  class="fbx-react">👍</span>
-                        <span data-type="love"  class="fbx-react">❤️</span>
-                        <span data-type="care"  class="fbx-react">🥰</span>
-                        <span data-type="haha"  class="fbx-react">😆</span>
-                        <span data-type="wow"   class="fbx-react">😮</span>
-                        <span data-type="sad"   class="fbx-react">😢</span>
+                        <span data-type="like" class="fbx-react">👍</span>
+                        <span data-type="love" class="fbx-react">❤️</span>
+                        <span data-type="care" class="fbx-react">🥰</span>
+                        <span data-type="haha" class="fbx-react">😆</span>
+                        <span data-type="wow" class="fbx-react">😮</span>
+                        <span data-type="sad" class="fbx-react">😢</span>
                         <span data-type="angry" class="fbx-react">😡</span>
                     </div>
 
@@ -247,10 +265,8 @@
                         </select>
 
                         <!-- tên bạn bè khi chọn messenger -->
-                        <input type="text" id="fbxShareFriend"
-                            class="fbx-share-friend"
-                            placeholder="Tên bạn bè (khi gửi bằng Messenger)"
-                            style="display:none;">
+                        <input type="text" id="fbxShareFriend" class="fbx-share-friend"
+                            placeholder="Tên bạn bè (khi gửi bằng Messenger)" style="display:none;">
 
                         <!-- nội dung chia sẻ -->
                         <textarea id="fbxShareText" placeholder="Hãy nói gì đó về nội dung này…"></textarea>
@@ -277,13 +293,13 @@
     <div id="postModal" class="post-modal">
         <div class="post-overlay"></div>
         <div class="post-popup">
-        <div class="post-popup-header">
-            <h3 id="postPopupTitle">Bài viết</h3>
-            <button class="post-popup-close" id="closePostModal">✖</button>
-        </div>
-        <div id="postPopupContent" class="post-popup-content">
-            <!-- Nội dung bài viết sẽ được chèn bằng JS -->
-        </div>
+            <div class="post-popup-header">
+                <h3 id="postPopupTitle">Bài viết</h3>
+                <button class="post-popup-close" id="closePostModal">✖</button>
+            </div>
+            <div id="postPopupContent" class="post-popup-content">
+                <!-- Nội dung bài viết sẽ được chèn bằng JS -->
+            </div>
         </div>
     </div>
 
@@ -364,7 +380,7 @@
             <button id="postCreatorSubmit" class="post-creator-btn">Đăng</button>
         </div>
 
-        
+
     </div>
 
 </body>
