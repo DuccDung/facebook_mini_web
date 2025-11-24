@@ -6,7 +6,8 @@
   <title>Facebook - Trang chủ</title>
   <link rel="stylesheet" href="{{ mix('resources/css/pages/app_chat/style.css') }}" />
   <link rel="stylesheet" href="{{ mix('resources/css/pages/app_home/home.css') }}" />
-   <link rel="icon" href="{{ mix('resources/assets/app_chat/icons/facebook.svg') }}">
+  <link rel="stylesheet" href="{{ mix('resources/css/pages/notification.css') }}" />
+  <link rel="icon" href="{{ mix('resources/assets/app_chat/icons/facebook.svg') }}">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
 
 </head>
@@ -656,5 +657,6 @@
     </div>
   </div>
     @vite('resources/js/pages/app_home/home-enhanced.js')
+    @vite('resources/js/pages/notification.js')
 </body>
 </html>
