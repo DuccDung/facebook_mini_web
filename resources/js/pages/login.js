@@ -158,8 +158,4 @@ import { domain } from "../utils/domain.js";
       window.addEventListener('load', function(){ emailInput.focus(); });
     })();
 
-    document.getElementById('signup').addEventListener('click', function(e){
-      e.preventDefault();
-      window.location.href = "/";
-    });
 

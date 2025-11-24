@@ -61,11 +61,12 @@ export const getImageDemo = async (profileId) => {
 }
 
 // /api/Media/get/update-bacground-img?mediaId=s
-export const updateBackgroundImg = async (mediaId) => {
+export const updateBackgroundImg = async (mediaId , assetId) => {
   try {
     const res = await API.get('/api/Media/get/update-bacground-img', {
       params: {
         mediaId: mediaId,
+        assetId: assetId
       }
     });
     return res.data;
@@ -74,3 +75,4 @@ export const updateBackgroundImg = async (mediaId) => {
     throw error;
   }
 }
+

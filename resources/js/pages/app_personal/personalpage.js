@@ -250,7 +250,7 @@ async function loadAvatarPhotos() {
       document.getElementById("avatarPickerModal").classList.remove("show");
 
       // ---- GỌI API UPDATE AVATAR ----
-      let result = await updateBackgroundImg(mediaId);
+      let result = await updateBackgroundImg(mediaId , profile.profileId);
       console.log("Kết quả cập nhật ảnh đại diện:", result);
     });
   });

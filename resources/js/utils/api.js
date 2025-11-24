@@ -8,7 +8,7 @@ const API = axios.create({
   // headers: {
   //   "Content-Type": "application/json",
   // },
-  withCredentials: true, // rất quan trọng nếu dùng cookie (Laravel Sanctum / session)
+  withCredentials: true, 
 });
 
 export default API;

@@ -59,7 +59,7 @@
 
             <hr>
 
-            <a href="#" class="signup-btn" id="signup">Tạo tài khoản mới</a>
+            <a href="{{ route('register') }}" class="signup-btn" id="signup">Tạo tài khoản mới</a>
         </form>
         </div>
         <div class="page-msg" style="text-align:center; margin-top: 20px;">
