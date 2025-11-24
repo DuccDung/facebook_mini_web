@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <title>Facebook - Trang chủ</title>
     <link rel="stylesheet" href="{{ mix('resources/css/pages/app_chat/style.css') }}" />
     <link rel="stylesheet" href="{{ mix('resources/css/pages/app_home/home.css') }}" />
+     <link rel="stylesheet" href="{{ mix('resources/css/pages/notification.css') }}" />
     <link rel="icon" href="{{ mix('resources/assets/app_chat/icons/facebook.svg') }}">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     @vite('resources/js/pages/app_home/setup_home.js')
@@ -513,6 +513,7 @@
         </div>
     </div>
     @vite('resources/js/pages/app_home/home-enhanced.js')
+    @vite('resources/js/pages/notification.js')
 </body>
 
 </html>

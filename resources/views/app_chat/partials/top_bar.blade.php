@@ -25,10 +25,12 @@
 
     <!-- Right: Options -->
     <div class="top-right">
-        <a href="{{ route('chat') }}" class="icon-btn"><img src="{{ Vite::asset('resources/assets/app_chat/icons/messenger2.png') }}"
-                alt=""></a>
-        <button class="icon-btn"><img src="{{ Vite::asset('resources/assets/app_chat/icons/bell.svg') }}"
+        <button class="icon-btn"><img src="{{ Vite::asset('resources/assets/app_chat/icons/grid.svg') }}"
                 alt=""></button>
+        <button class="icon-btn" id="notiBtn"><img  src="{{ Vite::asset('resources/assets/app_chat/icons/bell.svg') }}"
+                alt=""></button>
+                {{-- Gọi partial dropdown --}}
+    @include('app_chat.partials.notifications.notification_dropdown')
         {{-- <button class="avatar"><img id="avatar__img-main" src="{{ Vite::asset('resources/assets/app_chat/images/user-default.png') }}" alt=""></button> --}}
         <a href="{{ route('personal') }}" class="avatar">
         <button class="avatar">

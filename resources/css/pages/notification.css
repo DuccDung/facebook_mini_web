@@ -1,0 +1,187 @@
+/* MẶC ĐỊNH ẨN */
+.noti-dropdown {
+    position: absolute;
+    top: 65px;
+    right: 25px;
+    width: 360px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 3px 20px rgba(0,0,0,0.15);
+    display: none;                 /* ẨN */
+    overflow-y: auto;
+    z-index: 2000;
+}
+
+/* KHI JS BỎ .d-none → HIỆN */
+.noti-dropdown.show {
+    display: block !important;
+}
+
+.d-none { 
+    display: none !important;
+}
+
+/* --- HEADER--- */
+
+.noti-header {
+    padding: 12px 15px;
+    font-weight: 700;
+    font-size: 18px;
+    border-bottom: 1px solid #eee;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+/*********************************************/
+/* Nút 3 chấm trong header */
+.noti-header-more-menu.show {
+    display: block !important;
+}
+
+.noti-header-more-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 50%;
+}
+
+.noti-header-more-btn:hover {
+    background: #f0f2f5;
+}
+
+/* Menu nhỏ */
+.noti-header-more-menu {
+    position: absolute;
+    top: 45px;       /* ngay bên dưới header */
+    right: 10px;
+    width: 260px;
+
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    padding: 10px 0;
+    z-index: 3000;
+    display: none; 
+}
+.noti-header-more-btn img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+.menu-item {
+    padding: 12px 16px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.menu-item:hover {
+    background: #f0f2f5;
+}
+
+.d-none {
+    display: none !important;
+}
+/*********************************************/
+/* --- ITEM LIST--- */
+.noti-list {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.noti-item {
+    display: flex;
+    gap: 12px;
+    padding: 4px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.noti-item:hover {
+    background: #f0f2f5;
+}
+/* ---  AVATAR + ICON --- */
+.noti-avatar-wrapper {
+    position: relative;
+    width: 56px ;
+    height: 56px ;
+}
+
+.noti-avatar {
+    width: 56px !important;
+    height: 56px !important;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/*làm icon nhỏ nằm đè lên avatar*/
+.noti-type-icon {
+    position: absolute;
+    bottom: -1px;
+    right: -1px;
+
+    width: 28px !important;
+    height: 28px !important;
+
+    object-fit: contain;
+    border-radius: 50%;
+    border: 1px solid #fff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- CONTENT --- */
+.noti-content {
+    font-size: 14px;
+    color: #050505;
+    flex: 1;
+}
+
+.noti-name { font-weight: 600 }
+
+.noti-time {
+    font-size: 12px;
+    color: gray;
+    margin-top: 3px;
+}
+/* Icon trong menu option */
+.menu-icon {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+    margin-right: 10px;
+    opacity: 0.8;
+}
+.menu-item-option {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.menu-item-option:hover {
+    background: #f0f2f5;
+}
+    /* NÚT XEM THÊM */
+.show-more-noti {
+    width: 100%;
+    padding: 10px;
+    font-size: 15px;
+    border: none;
+    background: #e4e6eb;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.show-more-noti:hover {
+    background: #d8dadf;
+}
+
