@@ -1,8 +1,8 @@
-<div class="noti-list">
+<div id="bell__notification-list" class="noti-list">
 
 <!--Hiển thị 5 tbao mới nhất-->
 
-    <!-- 1. Cảm xúc -->
+    {{-- <!-- 1. Cảm xúc -->
 
     <div class="noti-item">
         <div class="noti-avatar-wrapper">
@@ -81,7 +81,7 @@
             <span class="noti-name">Mai Hương</span> đã đăng bài mới.
             <span class="noti-time">1 phút trước</span>
         </div>
-    </div>
+    </div> --}}
 
     <!--CÁC THÔNG BÁO CŨ – ẨN-->
     <div id="olderNoti" class="d-none">

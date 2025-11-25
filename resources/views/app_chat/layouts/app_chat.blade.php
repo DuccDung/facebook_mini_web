@@ -33,7 +33,7 @@
                 </svg>
             </button>
             <div class="incoming-label">Cuộc gọi đến</div>
-            <img id="incomingAvatar" class="avatar" src="assets/images/avatar-default.png" alt="">
+            <img id="incomingAvatar" class="avatar" src="" alt="">
             <div id="incomingName" class="caller-name">Người gọi</div>
             <div class="encrypted">
                 <svg viewBox="0 0 16 16">
@@ -77,7 +77,7 @@
             </svg>
         </button>
         <div class="center-content">
-            <img id="acAvatar" class="avatar" src="assets/images/avatar-default.png" alt="">
+            <img id="acAvatar" class="avatar" src="" alt="">
             <div id="acName" class="caller-name">Tên</div>
             <div id="acStatus" class="calling-status">Đang gọi...</div>
         </div>
@@ -197,7 +197,7 @@
     <!-- Call ended overlay -->
     <div id="callEndedOverlay" class="call-ended-overlay" hidden>
         <div class="center" role="status" aria-live="polite">
-            <img id="ceAvatar" class="avatar" src="assets/images/avatar-default.png" alt="Caller avatar">
+            <img id="ceAvatar" class="avatar" src="" alt="Caller avatar">
             <div id="ceName" class="name">Tên</div>
             <div class="status">Đã kết thúc cuộc gọi</div>
         </div>
