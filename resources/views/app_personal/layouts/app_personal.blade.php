@@ -8,12 +8,14 @@
     <link rel="stylesheet" href="{{ mix('resources/css/pages/app_chat/style.css') }}" />
     <link rel="stylesheet" href="{{ mix('resources/css/pages/app_personal/personalpage.css') }}" />
     <link rel="icon" href="{{ mix('resources/assets/app_chat/icons/facebook.svg') }}">
+    <link rel="stylesheet" href="{{ mix('resources/css/pages/notification.css') }}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     @vite('resources/js/pages/app_personal/personalpage.js')
     @vite('resources/js/pages/app_personal/cover_img.js')
     @vite('resources/js/pages/app_personal/setup_profile.js')
     @vite('resources/js/pages/app_personal/profile_photos.js')
     @vite('resources/js/pages/app_personal/friend_ship.js')
+    @vite('resources/js/pages/app_home/notification.js')
 </head>
 
 <body>
@@ -132,7 +134,7 @@
                     <!-- nơi render danh sách -->
                     <div id="friends-preview" class="friends-preview"></div>
                 </div>
-               
+
                 <div class="card">
                     <div class="card-header">
                         <span class="card-title">Tìm kiếm người dùng</span>
@@ -382,7 +384,7 @@
 
 
     </div>
-
+    @vite('resources/js/pages/notification.js')
 </body>
 
 </html>
