@@ -9,7 +9,11 @@
     <link rel="icon" href="{{ mix('resources/assets/app_chat/icons/facebook.svg') }}">
     <link rel="stylesheet" href="{{ mix('resources/css/pages/notification.css') }}" />
     @vite('resources/js/pages/app_chat/app.js')
-     @vite('resources/js/pages/app_home/notification.js')
+    @vite('resources/js/pages/app_chat/left_pane.js')
+    @vite('resources/js/pages/app_chat/chat_pane.js')
+    @vite('resources/js/pages/app_home/notification.js')
+    @vite('resources/css/pages/app_chat/left_pane.css')
+    @vite('resources/css/pages/app_chat/chat_pane.css')
 </head>
 <body>
     @include('app_chat.partials.top_bar')

@@ -23,10 +23,20 @@
 
       <div class="to-bar" id="toBar" hidden>
         <span>Đến:</span>
+
         <div class="to-input" id="toInput">
+          <div id="selectedList" class="selected-list"></div>
           <input type="text" id="toSearch">
           <ul class="search-results" id="toSearchResults"></ul>
+
+          <div id="toDropdown" class="to-dropdown hidden">
+            <h4>Danh bạ của bạn</h4>
+            <div class="dropdown-body" id="toContactList">
+                <!-- Danh sách load từ JS -->
+            </div>
+          </div>
         </div>
+
       </div>
 
       {{-- height scroller == height total - (chatHeader + topBar + composer) --}}
@@ -34,7 +44,7 @@
         <!-- Messages will be appended here -->
       </section>
 
-      <footer class="composer">
+      <footer class="composer hidden">
         <div class="composer-left">
           <button class="icon-btn" title="Ghi âm"><img src="{{ Vite::asset('resources/assets/app_chat/icons/mic-fill.svg') }}" alt=""></button>
           <button class="icon-btn" title="Ảnh/Video"><img src="{{ Vite::asset('resources/assets/app_chat/icons/images.svg') }}" alt=""></button>

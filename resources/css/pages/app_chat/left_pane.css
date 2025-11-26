@@ -1,0 +1,109 @@
+.hidden {
+    display: none !important;
+}
+.contact-pane {
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    overflow-y: auto;
+}
+.search-row {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    padding: 8px 12px;  /* canh đều lề trái phải */
+}
+.left-pane {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
+
+.thread-list {
+    overflow-y: auto;
+    flex: 1;
+    padding-bottom: 10px;
+}
+
+
+.back-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;  /* Căn giữa icon theo trục dọc */
+    justify-content: center;
+    width: 32px;          /* Đặt kích thước chuẩn */
+    height: 32px;         /* Như Messenger */
+    padding: 0;
+}
+
+.back-btn img {
+    width: 22px;
+    height: 22px;
+}
+
+.search {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f0f2f5;
+    padding: 10px 14px;
+    border-radius: 999px; /* Bo tròn đúng Messenger */
+}
+
+.search input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 14px;
+}
+
+
+.contact-header {
+    color: #65686C;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    border-bottom: 1px solid #ddd;
+}
+
+.back-btn {
+    font-size: 22px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.contact-item {
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+}
+
+.contact-item img {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+}
+.list-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.icon-btn {
+    background-color: #E2E5E9;
+}
+
+
