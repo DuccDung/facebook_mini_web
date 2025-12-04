@@ -27,7 +27,7 @@ async function initChatApp() {
     const userId = localStorage.getItem("userId");
     const res = await GetConversations(userId);
     threads = res.data || [];
-
+     console.log("Fetched conversations:", res.data);
     initMqtt();
 
     // chọn thread đầu tiên hoặc thread active
@@ -103,8 +103,12 @@ function renderThreads(list) {
     const li = document.createElement('li');
     li.className = 'thread-item' + ((activeThread && t.id === activeThread.id) ? ' active' : '');
     li.dataset.id = t.id;
-
-    li.innerHTML = `
+    if(t.is_group){
+      let avatarArray = JSON.parse(t.avatar);
+      avatarArray.forEach(img => {
+        console.log(img);
+      });
+      li.innerHTML = `
       <div class="avatar"><img src="${t.avatar}" alt=""></div>
       <div class="thread-meta">
         <div class="name">${t.name}</div>
@@ -128,6 +132,63 @@ function renderThreads(list) {
         <li>Báo cáo</li>
       </ul>
     `;
+    }
+    else{
+      let avatarArray = JSON.parse(t.avatar);
+      let avatar; 
+      avatarArray.forEach(img => {
+        console.log(img);
+        avatar = img;
+      });
+      li.innerHTML = `
+      <div class="avatar"><img src="${avatar}" alt=""></div>
+      <div class="thread-meta">
+        <div class="name">${t.name}</div>
+        <div class="snippet">${t.snippet || ''}</div>
+      </div>
+      <div class="thread-time">${t.time || ''}</div>
+
+      <!-- Nút 3 chấm -->
+      <button class="icon-btn more-btn">⋮</button>
+
+      <!-- Menu ẩn -->
+      <ul class="thread-menu" hidden>
+        <li>Đánh dấu là chưa đọc</li>
+        <li>Tắt thông báo</li>
+        <li>Xem trang cá nhân</li>
+        <li>Gọi thoại</li>
+        <li>Chat video</li>
+        <li>Chặn</li>
+        <li>Lưu trữ đoạn chat</li>
+        <li>Xóa đoạn chat</li>
+        <li>Báo cáo</li>
+      </ul>
+    `;
+    }
+    // li.innerHTML = `
+    //   <div class="avatar"><img src="${t.avatar}" alt=""></div>
+    //   <div class="thread-meta">
+    //     <div class="name">${t.name}</div>
+    //     <div class="snippet">${t.snippet || ''}</div>
+    //   </div>
+    //   <div class="thread-time">${t.time || ''}</div>
+
+    //   <!-- Nút 3 chấm -->
+    //   <button class="icon-btn more-btn">⋮</button>
+
+    //   <!-- Menu ẩn -->
+    //   <ul class="thread-menu" hidden>
+    //     <li>Đánh dấu là chưa đọc</li>
+    //     <li>Tắt thông báo</li>
+    //     <li>Xem trang cá nhân</li>
+    //     <li>Gọi thoại</li>
+    //     <li>Chat video</li>
+    //     <li>Chặn</li>
+    //     <li>Lưu trữ đoạn chat</li>
+    //     <li>Xóa đoạn chat</li>
+    //     <li>Báo cáo</li>
+    //   </ul>
+    // `;
 
     // Khi click vào phần thread -> mở chat
     li.querySelector('.avatar').addEventListener('click', () => {

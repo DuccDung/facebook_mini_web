@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <title>Facebook - Trang chủ</title>
     <link rel="stylesheet" href="{{ mix('resources/css/pages/app_chat/style.css') }}" />
     <link rel="stylesheet" href="{{ mix('resources/css/pages/app_home/home.css') }}" />
-     <link rel="stylesheet" href="{{ mix('resources/css/pages/notification.css') }}" />
+    <link rel="stylesheet" href="{{ mix('resources/css/pages/notification.css') }}" />
     <link rel="icon" href="{{ mix('resources/assets/app_chat/icons/facebook.svg') }}">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     @vite('resources/js/pages/app_home/setup_home.js')
@@ -240,16 +241,22 @@
             <div class="sidebar-section">
                 <div class="section-header">
                     <h3>Người liên hệ</h3>
-                    {{-- <div class="section-actions">
-                        <button class="icon-btn-small" title="Tìm kiếm">
-                            <img src="messenger-clone/assets/icons/search.svg" alt="">
-                        </button>
-                        <button class="icon-btn-small" title="Tùy chọn">
-                            <img src="messenger-clone/assets/icons/dots.svg" alt="">
-                        </button>
-                    </div> --}}
                 </div>
                 <div class="contacts-list">
+                    <a href="#" class="contact-item">
+                        <div class="contact-avatar">
+                            <img src="messenger-clone/assets/images/contact-1.png" alt="">
+                            <span class="online-dot"></span>
+                        </div>
+                        <span class="contact-name">Lê Ngọc</span>
+                    </a>
+                    <a href="#" class="contact-item">
+                        <div class="contact-avatar">
+                            <img src="messenger-clone/assets/images/contact-2.png" alt="">
+                            <span class="online-dot"></span>
+                        </div>
+                        <span class="contact-name">Trần Mai</span>
+                    </a>
                 </div>
             </div>
         </aside>
@@ -351,57 +358,60 @@
 
     <!-- ========== COMMENTS MODAL ========== -->
     <div id="commentsModal" class="comments-modal">
-    <div class="modal-overlay"></div>
-    <div class="modal-content comments-modal-content">
-      <div class="modal-header">
-        <h3>Bình luận</h3>
-        <button class="modal-close" id="closeCommentsModal">✖</button>
-      </div>
-      
-      <div class="comments-scrollable-area">
-        <div class="comments-post-preview">
-          <div class="preview-post-header">
-            <img src="messenger-clone/assets/images/contact-1.png" alt="" class="preview-post-avatar">
-            <div class="preview-post-author-info">
-              <div class="preview-post-author">Lê Ngọc</div>
-              <div class="preview-post-time">2 giờ · <img src="messenger-clone/assets/icons/users.svg" alt="" style="width: 12px; opacity: 0.6;"></div>
+        <div class="modal-overlay"></div>
+        <div class="modal-content comments-modal-content">
+            <div class="modal-header">
+                <h3>Bình luận</h3>
+                <button class="modal-close" id="closeCommentsModal">✖</button>
             </div>
-          </div>
-          <div class="preview-post-content">
-            <p>Hôm nay thật tuyệt vời! 🌟 Cảm ơn mọi người đã luôn ủng hộ mình ❤️</p>
-          </div>
-          <div class="preview-post-image">
-            <img src="messenger-clone/assets/images/contact-1.png" alt="Post image">
-          </div>
+
+            <div class="comments-scrollable-area">
+                <div class="comments-post-preview">
+                    <div class="preview-post-header">
+                        <img src="messenger-clone/assets/images/contact-1.png" alt=""
+                            class="preview-post-avatar">
+                        <div class="preview-post-author-info">
+                            <div class="preview-post-author">Lê Ngọc</div>
+                            <div class="preview-post-time">2 giờ · <img src="messenger-clone/assets/icons/users.svg"
+                                    alt="" style="width: 12px; opacity: 0.6;"></div>
+                        </div>
+                    </div>
+                    <div class="preview-post-content">
+                        <p>Hôm nay thật tuyệt vời! 🌟 Cảm ơn mọi người đã luôn ủng hộ mình ❤️</p>
+                    </div>
+                    <div class="preview-post-image">
+                        <img src="messenger-clone/assets/images/contact-1.png" alt="Post image">
+                    </div>
+                </div>
+
+                <div class="comments-list" id="commentsList">
+                    <!-- Comments populated by JS -->
+                </div>
+            </div>
+
+            <div class="comment-input-wrapper">
+                <img src="messenger-clone/assets/images/avatar-default.png" alt="" id="comment_avatar-left"
+                    class="comment-avatar">
+                <div class="comment-input-container">
+                    <div id="commentImagePreview" class="comment-image-preview"></div>
+                    <textarea placeholder="Viết bình luận..." class="comment-input" id="commentInput" rows="1"></textarea>
+                    <div class="comment-actions-btns">
+                        <button class="comment-action-btn" title="Biểu tượng cảm xúc">😊</button>
+                        <button class="comment-action-btn" id="commentPhotoBtn" title="Đính kèm ảnh">📷</button>
+                        <button class="comment-action-btn" title="GIF">GIF</button>
+                    </div>
+                </div>
+                <button class="comment-send-btn" id="sendComment">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M2 21l21-9L2 3v7l15 2-15 2v7z" />
+                    </svg>
+                </button>
+                <input type="file" id="commentImageInput" accept="image/*" style="display: none;">
+            </div>
         </div>
-        
-        <div class="comments-list" id="commentsList">
-          <!-- Comments populated by JS -->
-        </div>
-      </div>
-      
-      <div class="comment-input-wrapper">
-        <img src="messenger-clone/assets/images/avatar-default.png" alt="" id="comment_avatar-left" class="comment-avatar">
-        <div class="comment-input-container">
-          <div id="commentImagePreview" class="comment-image-preview"></div>
-          <textarea placeholder="Viết bình luận..." class="comment-input" id="commentInput" rows="1"></textarea>
-          <div class="comment-actions-btns">
-            <button class="comment-action-btn" title="Biểu tượng cảm xúc">😊</button>
-            <button class="comment-action-btn" id="commentPhotoBtn" title="Đính kèm ảnh">📷</button>
-            <button class="comment-action-btn" title="GIF">GIF</button>
-          </div>
-        </div>
-        <button class="comment-send-btn" id="sendComment">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/>
-          </svg>
-        </button>
-        <input type="file" id="commentImageInput" accept="image/*" style="display: none;">
-      </div>
     </div>
-  </div>
     <!-- ================= COMMENTS MODAL ================= -->
-   
+
 
     <!-- ========== CREATE POST MODAL ========== -->
     <div id="createPostModal" class="create-post-modal">

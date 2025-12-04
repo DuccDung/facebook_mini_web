@@ -3,10 +3,14 @@ const socket = getWebSocket();
 document.addEventListener("DOMContentLoaded", function () {
     socket.onmessage = function (event) {
         const data = JSON.parse(event.data);
-        console.log("Received WS message:", data);
+       // console.log("Received WS message:", data);
         if (data.type === "message") {
             renderMessageNotification(data);
         }
+        else if(data.type === "status_friend"){
+            console.log("Friend status update:", data);
+        }
+         //console.log("Friend status update:", data);
     };
 });
 function formatTime(timeString) {
