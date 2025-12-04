@@ -1,0 +1,97 @@
+/* Chat pane */
+.chat-pane {
+    
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 56px);     /* hoặc 100% container nếu có sidebar */
+  overflow: hidden;    /* Ngăn cuộn toàn pane */
+  background: #fff
+}
+
+.chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.peer {
+  display: flex;
+  align-items: center;
+  gap: 12px
+}
+
+.peer img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%
+}
+
+.peer .name {
+  font-weight: 700
+}
+
+.peer .sub {
+  color: var(--sub);
+  font-size: 12px
+}
+
+.chat-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* khoảng cách giữa các nút */
+}
+
+.chat-actions .icon-btn {
+  border: none;
+  background: var(--bg)
+}
+
+.scroller {
+  flex: 1 1 auto;
+  padding: 16px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #fff;
+  position: relative;
+}
+
+/* Messages */
+.msg {
+  max-width: 68ch;
+  padding: 10px 12px;
+  margin: 6px 0;
+  border-radius: 18px;
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, .05)
+}
+
+.msg.left {
+  background: #f0f2f5;
+  color: #050505;
+  align-self: flex-start;
+  border-top-left-radius: 4px
+}
+
+.msg.right {
+  color: #fff;
+  align-self: flex-end;
+  border-top-right-radius: 4px;
+  background: linear-gradient(135deg, var(--purple1), var(--purple2));
+}
+
+.bubble-group {
+  display: flex;
+  flex-direction: column
+}
+
+.time {
+  color: var(--sub);
+  font-size: 12px;
+  margin-top: 2px
+}
+/*khi nhấn tạo nhóm*/

@@ -71,7 +71,7 @@ body {
 }
 
 .icon-btn {
-  background: #fff;
+  background: #E2E5E9;
   border: 1px solid var(--border);
   border-radius: 999px;
   width: 36px;
@@ -164,6 +164,7 @@ body {
 /* App layout */
 .app {
   height: calc(100vh - 56px);
+  overflow: hidden; 
   display: grid;
   grid-template-columns: 360px 1fr;
   gap: 0
@@ -174,7 +175,9 @@ body {
   background: #fff;
   display: flex;
   flex-direction: column;
-  min-width: 320px
+  min-width: 320px;
+  height: 100%;   /* Quan trọng nhất */
+  overflow: hidden; /* Để con cuộn */
 }
 
 .list-header {
@@ -190,6 +193,7 @@ body {
 }
 
 .search {
+  flex:1;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -240,164 +244,10 @@ body {
 .tab.more img {
   width: 18px
 }
-
-.thread-list {
-  list-style: none;
-  margin: 0;
-  padding: 4px 8px 12px;
-  overflow: auto
-}
-
-.thread-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 8px;
-  border-radius: 12px;
-  cursor: pointer
-}
-
-.thread-item:hover {
-  background: var(--bg)
-}
-
-.thread-item.active {
-  background: #e7f3ff
-}
-
-.thread-item .avatar {
-  width: 44px;
-  height: 44px;
-  flex: 0 0 44px;
-  border-radius: 50%;
-  overflow: hidden
-}
-
-.thread-item .avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover
-}
-
-.thread-meta {
-  flex: 1;
-  min-width: 0
-}
-
-.thread-meta .name {
-  font-weight: 600;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis
-}
-
-.thread-meta .snippet {
-  color: var(--sub);
-  font-size: 13px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis
-}
-
-.thread-time {
-  font-size: 12px;
-  color: var(--sub)
-}
-
-/* Chat pane */
-.chat-pane {
-  display: grid;
-  grid-template-rows: 64px 1fr auto;
-  background: #fff
-}
-
-.chat-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 16px;
-  border-bottom: 1px solid var(--border)
-}
-
-.peer {
-  display: flex;
-  align-items: center;
-  gap: 12px
-}
-
-.peer img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%
-}
-
-.peer .name {
-  font-weight: 700
-}
-
-.peer .sub {
-  color: var(--sub);
-  font-size: 12px
-}
-
-.chat-actions {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  /* khoảng cách giữa các nút */
-}
-
-.chat-actions .icon-btn {
-  border: none;
-  background: var(--bg)
-}
-
-.scroller {
-  padding: 16px;
-  overflow: auto;
-  background: #fff;
-  position: relative
-}
-
-/* Messages */
-.msg {
-  max-width: 68ch;
-  padding: 10px 12px;
-  margin: 6px 0;
-  border-radius: 18px;
-  word-wrap: break-word;
-  overflow-wrap: anywhere;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, .05)
-}
-
-.msg.left {
-  background: #f0f2f5;
-  color: #050505;
-  align-self: flex-start;
-  border-top-left-radius: 4px
-}
-
-.msg.right {
-  color: #fff;
-  align-self: flex-end;
-  border-top-right-radius: 4px;
-  background: linear-gradient(135deg, var(--purple1), var(--purple2));
-}
-
-.bubble-group {
-  display: flex;
-  flex-direction: column
-}
-
-.time {
-  color: var(--sub);
-  font-size: 12px;
-  margin-top: 2px
-}
-
 /* Composer */
 .composer {
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   gap: 10px;
   padding: 10px;
@@ -470,16 +320,6 @@ body {
   }
 }
 
-@media (max-width: 900px) {
-  .left-pane {
-    display: none
-  }
-
-  .app {
-    grid-template-columns: 1fr
-  }
-}
-
 /* Top search bar input to match screenshot */
 .searchbar-top {
   display: flex;
@@ -519,7 +359,17 @@ body {
 
 
 /* Responsive cho màn hình nhỏ (mobile) */
-@media (max-width: 768px) {
+@media (max-width: 664px) {
+  /* Chat pane phải chiếm trọn màn hình */
+  .chat-pane {
+    width: 100% !important;
+    flex: 1 1 auto !important;
+  }
+
+  /* Đảm bảo app chỉ còn 1 cột */
+  .app {
+    grid-template-columns: 1fr !important;
+  }
   .top-center {
     display: none;
     /* Ẩn icon giữa */
@@ -551,7 +401,7 @@ body {
 }
 
 /* Khi màn nhỏ thì hiện back và ẩn left-pane */
-@media (max-width: 900px) {
+@media (max-width: 664px) {
   .back-btn {
     display: inline-flex;
     margin-right: 8px;
