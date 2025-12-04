@@ -8,7 +8,7 @@
         </button>
 
         <div class="peer">
-          <img id="peerAvatar" src="" alt="avatar" />
+          <div id="peerAvatar"></div>
           <div>
             <div class="name" id="peerName"></div>
             <div class="sub" id="peerStatus"></div>

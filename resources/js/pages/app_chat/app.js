@@ -27,7 +27,7 @@ async function initChatApp() {
     const userId = localStorage.getItem("userId");
     const res = await GetConversations(userId);
     threads = res.data || [];
-     console.log("Fetched conversations:", res.data);
+    console.log("Fetched conversations:", res.data);
     initMqtt();
 
     // chọn thread đầu tiên hoặc thread active
@@ -65,7 +65,7 @@ const peerAvatar = document.getElementById('peerAvatar');
 const emojiBtn = document.getElementById('emojiBtn');
 const emojiPanel = document.getElementById('emojiPanel');
 const backBtn = document.getElementById('backBtn');
-const newMsgBtn = document.getElementById('newMsgBtn');
+// const newMsgBtn = document.getElementById('newMsgBtn');
 
 // Thanh "Đến:" & composer
 const toBar = document.getElementById("toBar");
@@ -103,13 +103,22 @@ function renderThreads(list) {
     const li = document.createElement('li');
     li.className = 'thread-item' + ((activeThread && t.id === activeThread.id) ? ' active' : '');
     li.dataset.id = t.id;
-    if(t.is_group){
+    if (t.is_group) {
+      // let avatarArray = JSON.parse(t.avatar);
+      // avatarArray.forEach(img => {
+      //   console.log(img);
+      // });
       let avatarArray = JSON.parse(t.avatar);
-      avatarArray.forEach(img => {
-        console.log(img);
+      let avatarsHTML = '';
+      // Giới hạn số lượng ảnh hiển thị là 3 (hoặc tùy ý bạn)
+      avatarArray.slice(0, 3).forEach((img, index) => {
+        avatarsHTML += `<img src="${img}" alt="Avatar ${index + 1}" class="group-avatar" style="z-index: ${3 - index};">`;
       });
+
       li.innerHTML = `
-      <div class="avatar"><img src="${t.avatar}" alt=""></div>
+       <div class="avatar group">
+        ${avatarsHTML}
+        </div>
       <div class="thread-meta">
         <div class="name">${t.name}</div>
         <div class="snippet">${t.snippet || ''}</div>
@@ -133,9 +142,9 @@ function renderThreads(list) {
       </ul>
     `;
     }
-    else{
+    else {
       let avatarArray = JSON.parse(t.avatar);
-      let avatar; 
+      let avatar;
       avatarArray.forEach(img => {
         console.log(img);
         avatar = img;
@@ -467,30 +476,30 @@ if (isMobile()) showList();
 //      NEW MESSAGE
 // =======================
 toBar.hidden = true;
-newMsgBtn.addEventListener("click", () => {
-  isComposingNew = true;
-
-  scroller.innerHTML = "";
-  peerName.textContent = "Tin nhắn mới";
-  peerStatus.textContent = "";
-  peerAvatar.src = "assets/images/group.png";
-
-  toBar.style.display = "flex";   // hiện thanh “Đến:”
-  toBar.hidden = false;
-  composer.style.display = "none"; // chỉ hiện lại khi chọn người
-
-  toSearch.value = "";
-  toSearch.focus();
-  selectedRecipients = [];
-  draftThreadId = null;
-  toSearchResults.innerHTML = "";
-  [...toInput.querySelectorAll(".tag")].forEach(t => t.remove());
-
-  activeThread = null;
-  document.querySelectorAll('.thread-item').forEach(el => el.classList.remove('active'));
-});
 
 // ===== Chuyển thread =====
+// function setActiveThread(id) {
+//   activeThread = threads.find(t => t.id === id) || threads[0];
+
+//   document.querySelectorAll('.thread-item').forEach(el => {
+//     el.classList.toggle('active', +el.dataset.id === id);
+//   });
+
+//   peerAvatar.src = activeThread.avatar;
+//   peerName.textContent = activeThread.name;
+//   peerStatus.textContent = activeThread.time ? ("Hoạt động " + activeThread.time + " trước") : "";
+
+//   // reset về trạng thái chat thường
+//   isComposingNew = false;
+//   selectedRecipients = [];
+//   toBar.style.display = "none";
+//   toSearch.value = "";
+//   toSearchResults.innerHTML = "";
+//   [...toInput.querySelectorAll(".tag")].forEach(t => t.remove());
+//   composer.style.display = "flex";
+
+//   renderMessages();
+// }
 function setActiveThread(id) {
   activeThread = threads.find(t => t.id === id) || threads[0];
 
@@ -498,11 +507,23 @@ function setActiveThread(id) {
     el.classList.toggle('active', +el.dataset.id === id);
   });
 
-  peerAvatar.src = activeThread.avatar;
+  // Cập nhật avatar cho nhóm (group) với nhiều ảnh
+  // if (activeThread.is_group) {
+    let avatarArray = JSON.parse(activeThread.avatar);
+    let avatarsHTML = '';
+    avatarArray.slice(0, 3).forEach((img, index) => {
+      avatarsHTML += `<img src="${img}" class="group-avatar" style="z-index: ${3 - index};">`;
+    });
+    peerAvatar.innerHTML = avatarsHTML; // Thay vì peerAvatar.src, ta dùng innerHTML để gắn các ảnh
+  // } else {
+  //   // Nếu là thread cá nhân, chỉ gán một avatar duy nhất
+  //   peerAvatar.innerHTML = `<img src="${activeThread.avatar}" alt="Avatar">`;
+  // }
+
   peerName.textContent = activeThread.name;
   peerStatus.textContent = activeThread.time ? ("Hoạt động " + activeThread.time + " trước") : "";
 
-  // reset về trạng thái chat thường
+  // Reset về trạng thái chat thường
   isComposingNew = false;
   selectedRecipients = [];
   toBar.style.display = "none";
@@ -513,6 +534,7 @@ function setActiveThread(id) {
 
   renderMessages();
 }
+
 
 // ===== Contacts & chọn người nhận =====
 // const contacts = [
