@@ -3148,3 +3148,63 @@ body.dark-mode i {
     background-size: cover;
     background-position: center;
 }
+
+/* MOBILE: ẩn Lời mời kết bạn + Tìm bạn bè, hiện nút + */
+@media (max-width: 732px) {
+
+  /* Ẩn 2 link */
+  .friend-link {
+    display: none !important;
+  }
+
+  /* Hiện nút + */
+  .add-btn {
+    display: flex !important;
+  }
+}
+/* KHỐNG CHO NHÓM SEARCH + PLUS + MENU XUỐNG DÒNG */
+.friends-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: nowrap !important;
+    width: 100%;
+}
+
+/* Search tự co giãn */
+.search-wrap {
+    flex: 1;
+    min-width: 60px;
+}
+
+/* MOBILE */
+@media (max-width: 452px) {
+
+    /* ép 3 nút vào cùng 1 hàng */
+    .friends-controls {
+        gap: 8px;
+    }
+
+    /* thu nhỏ search */
+    .search-wrap {
+        max-width: 180px !important; /* bạn có thể chỉnh 140–200 */
+    }
+
+    .search-wrap input {
+        padding: 7px 10px 7px 32px;
+        font-size: 14px;
+        border-radius: 16px;
+    }
+
+    /* thu nhỏ nút + và ⋯ */
+    #friendAddBtn,
+    #friendMenuBtn {
+        width: 34px !important;
+        height: 34px !important;
+    }
+
+    #friendAddBtn i,
+    #friendMenuBtn i {
+        font-size: 14px !important;
+    }
+}

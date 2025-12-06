@@ -329,37 +329,117 @@ document.addEventListener("DOMContentLoaded", () => {
 // RENDER TRANG BẠN BÈ
 // ===========================================================
 function renderFriendsPage() {
-  const contentArea = document.querySelector(".content-area"); // 👈 FIX QUAN TRỌNG
+  const contentArea = document.querySelector(".content-area");
 
   contentArea.innerHTML = `
-            <div class="friends-section">
-                <div class="card" style="padding:20px; width:100%;">
-                    <div class="friends-header">Bạn bè</div>
+    <div class="friends-section">
+      <div class="card" style="padding:20px; width:100%;">
 
-                    <div class="friends-tabs">
-                        <div class="friends-tab active" data-tab="all">Tất cả bạn bè</div>
-                        <div class="friends-tab" data-tab="following">Đang theo dõi</div>
-                    </div>
+        <div class="friends-top" style="display:flex; flex-direction:column; gap:12px;">
 
-                    <div class="friend-list" id="friendList"></div>
-                </div>
+          <!-- DÒNG 1: Tiêu đề -->
+          <div class="friends-header" style="font-size:28px; font-weight:700;">
+              Bạn bè
+          </div>
+
+          <!-- DÒNG 2: Thanh tìm kiếm + nút + + nút ... -->
+          <div class="friends-controls"
+               style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
+
+            <div class="search-wrap" style="position:relative; width:260px;">
+              <input type="text" id="friendSearchInput" placeholder="Tìm kiếm"
+                style="width:50%; padding:10px 12px 10px 36px;
+                       border-radius:20px; border:1px solid #CED0D4;
+                       background:#F0F2F5; font-size:15px;" />
+              <i class="fas fa-search"
+                 style="position:absolute; top:50%; left:12px;
+                        transform:translateY(-50%); color:#65676B;"></i>
             </div>
-        `;
+
+            <!-- 2 links cần ẩn khi mobile -->
+            <a id="friendRequestBtn" class="friend-link"
+               style="color:#1876f2; font-weight:600; cursor:pointer; white-space:nowrap;">
+              Lời mời kết bạn
+            </a>
+
+            <a id="findFriendBtn" class="friend-link"
+               style="color:#1876f2; font-weight:600; cursor:pointer; white-space:nowrap;">
+              Tìm bạn bè
+            </a>
+
+            <!-- Nút + ( chỉ hiện khi mobile ) -->
+            <div id="friendAddBtn" class="add-btn"
+                 style="width:40px; height:40px; background:#E4E6EB; border-radius:50%;
+                        display:none; align-items:center; justify-content:center; cursor:pointer;">
+              <i class="fas fa-plus"></i>
+            </div>
+
+            <div id="friendMenuBtn"
+                 style="width:40px; height:40px; background:#E4E6EB;
+                        border-radius:50%; display:flex; align-items:center;
+                        justify-content:center; cursor:pointer;">
+              <i class="fas fa-ellipsis-h"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="friends-tabs" style="display:flex; gap:20px; margin-top:12px;">
+          <div class="friends-tab active" data-tab="all">Tất cả bạn bè</div>
+          <div class="friends-tab" data-tab="following">Đang theo dõi</div>
+        </div>
+
+        <div class="friend-list" id="friendList" style="margin-top:20px;"></div>
+
+      </div>
+    </div>
+  `;
 
   loadFriends();
-
-  const tabs = document.querySelectorAll(".friends-tab");
-  tabs.forEach(tab => {
-    tab.addEventListener("click", () => {
-      tabs.forEach(t => t.classList.remove("active"));
-      tab.classList.add("active");
-
-      const type = tab.dataset.tab;
-      if (type === "all") loadFriends();
-      else loadFollowing();
-    });
-  });
 }
+document.addEventListener("click", (e) => {
+  const addBtn = e.target.closest("#friendAddBtn");
+  if (!addBtn) return;
+
+  // tạo popup
+  let menu = document.getElementById("friendAddPopup");
+  if (menu) {
+    menu.remove();
+    return;
+  }
+
+  menu = document.createElement("div");
+  menu.id = "friendAddPopup";
+  menu.style.position = "absolute";
+  menu.style.right = "20px";
+  menu.style.top = (addBtn.getBoundingClientRect().bottom + window.scrollY + 6) + "px";
+  menu.style.background = "#fff";
+  menu.style.border = "1px solid #ddd";
+  menu.style.borderRadius = "8px";
+  menu.style.boxShadow = "0 4px 12px rgba(0,0,0,0.15)";
+  menu.style.padding = "8px";
+  menu.style.zIndex = "9999";
+  menu.innerHTML = `
+    <div class="menu-item" style="padding:10px; cursor:pointer; white-space:nowrap;">
+      Lời mời kết bạn
+    </div>
+    <div class="menu-item" style="padding:10px; cursor:pointer; white-space:nowrap;">
+      Tìm bạn bè
+    </div>
+  `;
+
+  document.body.appendChild(menu);
+
+  // click ngoài -> đóng
+  const close = (ev) => {
+    if (!menu.contains(ev.target) && ev.target !== addBtn) {
+      menu.remove();
+      document.removeEventListener("click", close);
+    }
+  };
+  setTimeout(() => document.addEventListener("click", close), 0);
+});
+
+
 // ==================== TOAST FUNCTION ====================
 function showToast(message) {
   const box = document.getElementById("toastContainer");
