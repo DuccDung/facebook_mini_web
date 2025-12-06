@@ -36,3 +36,7 @@ Route::get('/home', function () {
 Route::get('/chat', function () {
     return view('app_chat/layouts/app_chat');
 })->name('chat');
+
+Route::get('/friends', function () {
+    return view('app_friends/layouts/app_friends');
+})->name('friends');
