@@ -10,9 +10,12 @@
     <link rel="stylesheet" href="{{ mix('resources/css/pages/notification.css') }}" />
     <link rel="icon" href="{{ mix('resources/assets/app_chat/icons/facebook.svg') }}">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     @vite('resources/css/pages/app_friends/app_friends.css')
+    @vite('resources/css/pages/app_chat/top_bar.css')
     @vite('resources/js/pages/app_friends/app_friends.js')
     @vite('resources/js/pages/app_friends/suggest_allfriends.js')
+    @vite('resources/js/pages/app_home/setup_home.js')
 </head>
 
 <body>

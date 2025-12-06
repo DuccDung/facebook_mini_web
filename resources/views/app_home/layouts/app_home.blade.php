@@ -10,7 +10,9 @@
     <link rel="stylesheet" href="{{ mix('resources/css/pages/notification.css') }}" />
     <link rel="icon" href="{{ mix('resources/assets/app_chat/icons/facebook.svg') }}">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     @vite('resources/js/pages/app_home/setup_home.js')
+    @vite('resources/css/pages/app_chat/top_bar.css')
     @vite('resources/js/pages/app_home/notification.js')
 </head>
 
@@ -25,41 +27,55 @@
             <div class="sidebar-menu">
                 <a href="#" class="menu-item">
                     <img id="sidebar-avatar" src="messenger-clone/assets/images/avatar-default.png" alt=""
-                        class="menu-icon rounded">
+                        class="sidebar-avatar">
                     <span id="sidebar-name"></span>
                 </a>
-                <a href="#" class="menu-item">
-                    <i class="ri-user-3-fill menu-icon" aria-hidden="true"></i>
+                <a href="{{ route('friends') }}" class="menu-item">
+                    <div class="menu-icon-wrapper">
+                        <i class="ri-user-3-fill menu-icon" aria-hidden="true"></i>
+                    </div>
                     <span>Bạn bè</span>
                 </a>
 
                 <a href="#" class="menu-item">
-                    <i class="ri-team-fill menu-icon" aria-hidden="true"></i>
+                    <div class="menu-icon-wrapper">
+                        <i class="ri-team-fill menu-icon" aria-hidden="true"></i>
+                    </div>
                     <span>Nhóm</span>
                 </a>
 
                 <a href="#" class="menu-item">
-                    <i class="ri-store-2-fill menu-icon" aria-hidden="true"></i>
+                    <div class="menu-icon-wrapper">
+                        <i class="ri-store-2-fill menu-icon" aria-hidden="true"></i>
+                    </div>
                     <span>Marketplace</span>
                 </a>
 
                 <a href="#" class="menu-item">
-                    <i class="ri-tv-2-fill menu-icon" aria-hidden="true"></i>
+                    <div class="menu-icon-wrapper">
+                        <i class="ri-tv-2-fill menu-icon" aria-hidden="true"></i>
+                    </div>
                     <span>Watch</span>
                 </a>
 
                 <a href="#" class="menu-item">
-                    <i class="ri-calendar-event-fill menu-icon" aria-hidden="true"></i>
+                    <div class="menu-icon-wrapper">
+                        <i class="ri-calendar-event-fill menu-icon" aria-hidden="true"></i>
+                    </div>
                     <span>Sự kiện</span>
                 </a>
 
                 <a href="#" class="menu-item">
-                    <i class="ri-time-line menu-icon" aria-hidden="true"></i>
+                    <div class="menu-icon-wrapper">
+                        <i class="ri-time-line menu-icon" aria-hidden="true"></i>
+                    </div>
                     <span>Kỷ niệm</span>
                 </a>
 
                 <a href="#" class="menu-item">
-                    <i class="ri-bookmark-3-fill menu-icon" aria-hidden="true"></i>
+                    <div class="menu-icon-wrapper">
+                        <i class="ri-bookmark-3-fill menu-icon" aria-hidden="true"></i>
+                    </div>
                     <span>Đã lưu</span>
                 </a>
 

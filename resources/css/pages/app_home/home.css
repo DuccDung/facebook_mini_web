@@ -688,12 +688,20 @@ body {
   background: var(--hover-bg);
 }
 
+.sidebar-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;   /* tròn */
+    object-fit: cover;
+    margin-right: 10px;
+}
+
 .menu-icon {
-  width: 40px;
-  height: 40px;
-  object-fit: cover;
-  font-size: 20px;
-  line-height: 1;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    opacity: 0.8;
+    font-size: 22px;
 }
 
 .menu-item i {
@@ -702,10 +710,6 @@ body {
   line-height: 1;
   padding: 8px;
   /* bỏ padding-bottom quá lớn */
-}
-
-.menu-icon.rounded {
-  border-radius: 30%;
 }
 
 .see-more-icon {

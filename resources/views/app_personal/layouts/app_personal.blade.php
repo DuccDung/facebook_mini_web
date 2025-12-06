@@ -16,6 +16,8 @@
     @vite('resources/js/pages/app_personal/profile_photos.js')
     @vite('resources/js/pages/app_personal/friend_ship.js')
     @vite('resources/js/pages/app_home/notification.js')
+    @vite('resources/js/pages/app_home/setup_home.js')
+    @vite('resources/css/pages/app_chat/top_bar.css')
 </head>
 
 <body>

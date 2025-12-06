@@ -757,3 +757,20 @@ function escapeHtml(text) {
     div.innerText = text ?? "";
     return div.innerHTML;
 }
+
+
+//bật/tắt dropdown khi bấm avatar
+document.addEventListener("DOMContentLoaded", () => {
+    const avatarTrigger = document.getElementById("avatarTrigger");
+    const avatarDropdown = document.getElementById("avatarDropdown");
+
+    avatarTrigger.addEventListener("click", (e) => {
+        e.stopPropagation();
+        avatarDropdown.classList.toggle("hidden");
+    });
+
+    // Click outside → đóng dropdown
+    document.addEventListener("click", () => {
+        avatarDropdown.classList.add("hidden");
+    });
+});

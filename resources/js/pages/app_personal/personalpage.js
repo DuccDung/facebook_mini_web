@@ -357,12 +357,12 @@ function renderFriendsPage() {
             </div>
 
             <!-- 2 links cần ẩn khi mobile -->
-            <a id="friendRequestBtn" class="friend-link"
+            <a href="/friends" id="friendRequestBtn" class="friend-link"
                style="color:#1876f2; font-weight:600; cursor:pointer; white-space:nowrap;">
               Lời mời kết bạn
             </a>
 
-            <a id="findFriendBtn" class="friend-link"
+            <a href="/friends" id="findFriendBtn" class="friend-link"
                style="color:#1876f2; font-weight:600; cursor:pointer; white-space:nowrap;">
               Tìm bạn bè
             </a>
@@ -396,6 +396,19 @@ function renderFriendsPage() {
 
   loadFriends();
 }
+
+document.addEventListener("click", (e) => {
+  // Nút "+"
+  if (e.target.closest("#friendAddBtn")) {
+    window.location.href = "/friends?tab=find";
+  }
+
+  // Nút "..."
+  if (e.target.closest("#friendMenuBtn")) {
+    window.location.href = "/friends?tab=requests";
+  }
+});
+
 document.addEventListener("click", (e) => {
   const addBtn = e.target.closest("#friendAddBtn");
   if (!addBtn) return;

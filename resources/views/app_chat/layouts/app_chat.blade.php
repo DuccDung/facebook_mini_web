@@ -13,12 +13,14 @@
     @vite('resources/css/pages/app_chat/chat_pane.css')
     @vite('resources/css/pages/app_chat/left_pane.css')
     @vite('resources/css/pages/app_chat/create_group.css')
+    @vite('resources/css/pages/app_chat/top_bar.css')
 
     @vite('resources/js/pages/app_chat/app.js')
     @vite('resources/js/pages/notification.js')
     @vite('resources/js/pages/app_chat/chat_pane.js')
     @vite('resources/js/pages/app_chat/left_pane.js')
     @vite('resources/js/pages/app_chat/create_group.js')
+    @vite('resources/js/pages/app_home/setup_home.js')
 </head>
 <body>
     @include('app_chat.partials.top_bar')
