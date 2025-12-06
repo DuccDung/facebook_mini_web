@@ -25,3 +25,20 @@ export const getFriends = async (userId) => {
     throw error;
   }
 }
+
+// service
+export const createGroupChat = async (userId, friendIds, isGroup, title, createdAt) => {
+  try {
+    const res = await API.post('/api/Chat/InitConversationGroup', {
+      userId,
+      friendIds,
+      isGroup,
+      title,
+      createdAt,
+    });
+    return res.data;
+  } catch (error) {
+    console.error("Error :", error);
+    throw error;
+  }
+};

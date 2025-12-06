@@ -1,4 +1,5 @@
-
+import { at } from "lodash";
+import { getFriends, findFriend, createGroupChat } from "../../services/friend_service.js";
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -13,7 +14,124 @@ document.addEventListener("DOMContentLoaded", () => {
     const searchInput = document.querySelector(".search-input");
     const noResult = document.getElementById("noResult");
     const createBtn = document.querySelector(".create-btn");
+    const listContainer = document.getElementById("popup__contact-friends");
     const memberInputs = document.querySelectorAll(".contact-item input[name='member']");
+    const inputSearchFriend = document.getElementById('popup__search-friend');
+    const userId = localStorage.getItem("userId");
+    const nameGroupChat = document.getElementById('popup_name-inp');
+
+    createBtn.addEventListener('click', (e) => {
+        const count = document.querySelectorAll(".contact-item input:checked").length;
+        if (count < 1) return;
+        const selectedIds = [...document.querySelectorAll(".contact-item input:checked")]
+            .map(input => input.value);
+        if (count == 1) {
+            const data = createGroupChat(userId, selectedIds, false, nameGroupChat.value, new Date());
+            window.location.reload();
+
+        }
+        else if (count >= 2) {
+            const data = createGroupChat(userId, selectedIds, true, nameGroupChat.value, new Date());
+            window.location.reload();
+        }
+    });
+
+    inputSearchFriend.addEventListener('input', (e) => {
+        findFriends(userId, e.data);
+        if (inputSearchFriend.value == "") {
+            loadFriends();
+        }
+    });
+
+    async function findFriends(userId, email) {
+        try {
+            const friends = await findFriend(userId, email);
+            listContainer.innerHTML = `
+            <div class="contact-title">Danh sách tìm kiếm</div>
+        `;
+
+            friends.data.forEach(friend => {
+
+                const item = document.createElement("label");
+                item.classList.add("contact-item");
+
+                item.innerHTML = `
+                <input type="checkbox" name="member"
+                    value="${friend.userId}"
+                    data-name="${friend.userName}"
+                    data-email="${friend.email}"
+                    data-avatar="${friend.avatarUrl || "/assets/app_chat/images/user-default.png"}">
+
+                <div class="avatar-wrapper">
+                    <img src="${friend.avatarUrl || "/assets/app_chat/images/user-default.png"}">
+                    <span class="online-dot"></span>
+                </div>
+
+                <span>${friend.userName}</span>
+            `;
+
+                listContainer.appendChild(item);
+            });
+            attachMemberEvents();
+        } catch (e) {
+            console.log("bug call api in file create_group.js" + e);
+        }
+    }
+    async function loadFriends() {
+        try {
+            const friendsData = await getFriends(userId);
+            listContainer.innerHTML = `
+            <div class="contact-title">Danh sách bạn bè</div>
+        `;
+
+            friendsData.info.forEach(friend => {
+
+                const item = document.createElement("label");
+                item.classList.add("contact-item");
+
+                item.innerHTML = `
+                <input type="checkbox" name="member"
+                    value="${friend.userId}"
+                    data-name="${friend.userName}"
+                    data-avatar="${friend.avatarUrl || "/assets/app_chat/images/user-default.png"}">
+
+                <div class="avatar-wrapper">
+                    <img src="${friend.avatarUrl || "/assets/app_chat/images/user-default.png"}">
+                    <span class="online-dot"></span>
+                </div>
+
+                <span>${friend.userName}</span>
+            `;
+
+                listContainer.appendChild(item);
+            });
+            attachMemberEvents();
+        }
+        catch (error) {
+            console.error("Error:", error);
+        }
+    }
+    loadFriends();
+
+
+    function attachMemberEvents() {
+        const inputs = document.querySelectorAll(".contact-item input[name='member']");
+        updateCreateButton();
+        inputs.forEach(input => {
+            input.addEventListener("change", function () {
+                const id = this.value;
+                const name = this.dataset.name;
+                const avatar = this.dataset.avatar;
+
+                if (this.checked) {
+                    addSelectedUser(id, name, avatar, this);
+                } else {
+                    removeSelectedUser(id);
+                }
+                updateCreateButton();
+            });
+        });
+    }
 
 
     /* ==========================
@@ -61,7 +179,7 @@ document.addEventListener("DOMContentLoaded", () => {
     =========================== */
     function updateCreateButton() {
         const count = document.querySelectorAll(".contact-item input:checked").length;
-        if (count >= 2) {
+        if (count >= 1) {
             createBtn.disabled = false;
             createBtn.style.opacity = "1";
             createBtn.style.cursor = "pointer";
@@ -102,21 +220,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (item) item.remove();
     }
 
-    memberInputs.forEach(input => {
-        input.addEventListener("change", function () {
-            const id = this.value;
-            const name = this.dataset.name;
-            const avatar = this.dataset.avatar;
-
-            if (this.checked) {
-                addSelectedUser(id, name, avatar, this);
-            } else {
-                removeSelectedUser(id);
-            }
-            updateCreateButton();
-        });
-    });
-
     updateCreateButton();
 
 
@@ -128,82 +231,9 @@ document.addEventListener("DOMContentLoaded", () => {
         return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
     }
 
-    function runSearch() {
-        const keyword = searchInput.value.trim().toLowerCase();
-        const keywordNoAccent = removeVietnamese(keyword);
-
-        const items = document.querySelectorAll(".contact-item");
-        let shown = 0;
-
-        items.forEach(item => {
-            const name = item.querySelector("span").textContent.toLowerCase();
-            const nameNoAccent = removeVietnamese(name);
-
-            const email = removeVietnamese(item.querySelector("input").dataset.email || "");
-
-            const match =
-                name.includes(keyword) ||
-                nameNoAccent.includes(keywordNoAccent) ||
-                email.includes(keywordNoAccent);
-
-            if (match) {
-                item.style.display = "flex";
-                shown++;
-            } else {
-                item.style.display = "none";
-            }
-        });
-
-        noResult.style.display = shown === 0 ? "block" : "none";
-    }
-
-    searchInput.addEventListener("input", runSearch);
-
-
     /* ==========================
        CREATE GROUP: chưa làm đc
     =========================== */
-    
+
     const showChat = () => app.classList.remove('show-list');
-
-    createBtn.addEventListener("click", () => {
-        const checked = [...document.querySelectorAll(".contact-item input:checked")];
-
-        if (checked.length < 2) return;
-
-        const members = checked.map(c => ({
-            id: c.value,
-            name: c.dataset.name,
-            avatar: c.dataset.avatar
-        }));
-
-        let groupName = document.querySelector(".name-input").value.trim();
-        if (!groupName) {
-            groupName = members.map(m => m.name).join(", ");
-        }
-
-        const newThread = {
-            id: Date.now(),
-            name: groupName,
-            avatar: members[0].avatar,
-            snippet: "Bạn đã tạo nhóm",
-            time: "vừa xong",
-            active: true,
-            is_group: true,
-            messages: [],
-            members,
-        };
-
-        threads.unshift(newThread);
-        renderThreads(threads);
-        setActiveThread(newThread.id);
-
-        // ⚡ tự động chuyển sang giao diện chat (đặc biệt quan trọng cho mobile)
-        if (typeof showChat === "function") {
-            showChat();
-        }
-
-        modal.classList.add("hidden");
-    });
-
 });
