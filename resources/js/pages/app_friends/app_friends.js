@@ -3,8 +3,10 @@ document.addEventListener("DOMContentLoaded", () => {
     /* ===== ELEMENTS ===== */
     const sidebarDefault = document.getElementById("sidebarDefault");
     const sidebarRequest = document.getElementById("sidebarRequest");
+    const gybb = document.getElementById("gybb");
 
     const friendsHomeHeader = document.getElementById("friendsHome");
+    const friendsSearchInput = document.getElementById("friendsSearchInput");
     const friendsGrid = document.querySelector(".friends-grid");
     const friendsRequest = document.getElementById("friendsRequest");
 
@@ -19,8 +21,11 @@ document.addEventListener("DOMContentLoaded", () => {
         sidebarRequest.classList.remove("hidden");
 
         /* Main content */
+        friendsSearchInput.classList.add("hidden");
         friendsHomeHeader.classList.add("hidden");
         friendsGrid.classList.add("hidden");
+        gybb.classList.add("hidden");
+
 
         friendsRequest.classList.remove("hidden");
         friendsRequest.innerHTML = renderRequestPlaceholder();
@@ -36,9 +41,11 @@ document.addEventListener("DOMContentLoaded", () => {
         /* Main content */
         friendsRequest.classList.add("hidden");
         friendsRequest.innerHTML = "";
+        gybb.classList.remove("hidden");
 
         friendsHomeHeader.classList.remove("hidden");
         friendsGrid.classList.remove("hidden");
+        friendsSearchInput.classList.remove("hidden");
     });
 
 });
@@ -71,6 +78,7 @@ document.addEventListener("click", (e) => {
 });
 
 
+//POP-UP HỦY KẾT BẠN
 document.addEventListener("DOMContentLoaded", () => {
     const viewSentBtn = document.querySelector("#sidebarRequest .view-sent");
     const sentPopup = document.getElementById("sentPopup");
@@ -126,6 +134,7 @@ document.addEventListener("click", function (e) {
 
 });
 
+//TẤT CẢ BẠN BÈ
 import { getFriends } from "../../services/friend_service";
 
 
@@ -247,3 +256,22 @@ async function openOrCreateChat(friendId) {
     // 6️⃣ Điều hướng sang Messenger
     window.location.href = "/chat";
 }
+
+document.addEventListener("click", async (e) => {
+    const card = e.target.closest(".friend-user, .suggest-user, .friend-card");
+    if (!card) return;
+
+    const userId = card.dataset.userId;
+    if (!userId) return;
+
+    // Gọi tới route trả về HTML giao diện profile
+    const res = await fetch(`/profile-panel/${userId}`);
+    const html = await res.text();
+
+    // Gắn giao diện profile vào main
+    const content = document.getElementById("friendsContent");
+    content.innerHTML = html;
+
+    // Ẩn sidebar
+    document.getElementById("sidebarDefault")?.classList.add("hidden");
+});

@@ -230,6 +230,7 @@
 
         <div class="request-sidebar-header">
             <h2 class="sidebar-title">Gợi ý</h2>
+            <input type="text" id="suggestSearchInput" placeholder="Tìm bạn bè theo email">
             <span class="count"><b>Những người bạn có thể biết</b></span>
         </div>
 
@@ -241,126 +242,6 @@
                 <div class="info">
                     <strong>Việt Quang</strong>
                     <p>33 bạn chung</p>
-                    <div class="actions">
-                        <button class="btn-add">Thêm bạn bè</button>
-                        <button class="btn-delete">Gỡ</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="suggest-user" data-user-id="2">
-                <img src="https://i.pravatar.cc/100?2">
-                <div class="info">
-                    <strong>Phuong Ngon</strong>
-                    <p>5 bạn chung</p>
-                    <div class="actions">
-                        <button class="btn-add">Thêm bạn bè</button>
-                        <button class="btn-delete">Gỡ</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="suggest-user" data-user-id="3">
-                <img src="https://i.pravatar.cc/100?3">
-                <div class="info">
-                    <strong>Ánh Dương</strong>
-                    <p>13 bạn chung</p>
-                    <div class="actions">
-                        <button class="btn-add">Thêm bạn bè</button>
-                        <button class="btn-delete">Gỡ</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="suggest-user" data-user-id="4">
-                <img src="https://i.pravatar.cc/100?4">
-                <div class="info">
-                    <strong>Khánh Huyền</strong>
-                    <p>262 bạn chung</p>
-                    <div class="actions">
-                        <button class="btn-add">Thêm bạn bè</button>
-                        <button class="btn-delete">Gỡ</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="suggest-user" data-user-id="5">
-                <img src="https://i.pravatar.cc/100?5">
-                <div class="info">
-                    <strong>Nguyễn Tuấn</strong>
-                    <p>6 bạn chung</p>
-                    <div class="actions">
-                        <button class="btn-add">Thêm bạn bè</button>
-                        <button class="btn-delete">Gỡ</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="suggest-user" data-user-id="6">
-                <img src="https://i.pravatar.cc/100?6">
-                <div class="info">
-                    <strong>Mạnh Huy</strong>
-                    <p>6 bạn chung</p>
-                    <div class="actions">
-                        <button class="btn-add">Thêm bạn bè</button>
-                        <button class="btn-delete">Gỡ</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="suggest-user" data-user-id="7">
-                <img src="https://i.pravatar.cc/100?7">
-                <div class="info">
-                    <strong>Nguyễn Chính</strong>
-                    <p>1 bạn chung</p>
-                    <div class="actions">
-                        <button class="btn-add">Thêm bạn bè</button>
-                        <button class="btn-delete">Gỡ</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="suggest-user" data-user-id="8">
-                <img src="https://i.pravatar.cc/100?8">
-                <div class="info">
-                    <strong>Thành Hoàng</strong>
-                    <p>1 bạn chung</p>
-                    <div class="actions">
-                        <button class="btn-add">Thêm bạn bè</button>
-                        <button class="btn-delete">Gỡ</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="suggest-user" data-user-id="9">
-                <img src="https://i.pravatar.cc/100?9">
-                <div class="info">
-                    <strong>Mai Anh</strong>
-                    <p>8 bạn chung</p>
-                    <div class="actions">
-                        <button class="btn-add">Thêm bạn bè</button>
-                        <button class="btn-delete">Gỡ</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="suggest-user" data-user-id="10">
-                <img src="https://i.pravatar.cc/100?10">
-                <div class="info">
-                    <strong>Quang Minh</strong>
-                    <p>14 bạn chung</p>
-                    <div class="actions">
-                        <button class="btn-add">Thêm bạn bè</button>
-                        <button class="btn-delete">Gỡ</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="suggest-user" data-user-id="11">
-                <img src="https://i.pravatar.cc/100?11">
-                <div class="info">
-                    <strong>Lan Phương</strong>
-                    <p>21 bạn chung</p>
                     <div class="actions">
                         <button class="btn-add">Thêm bạn bè</button>
                         <button class="btn-delete">Gỡ</button>
@@ -403,12 +284,12 @@
 
         <!-- HOME CONTENT -->
         <div class="friends-header" id="friendsHome">
-            <h2>Tìm kiếm bạn bè</h2>
-            <a href="#" class="see-all">Xem tất cả</a>
+            <h2>Tìm kiếm bạn bè</h2>            
         </div>
         <!-- SEARCH BAR -->
         <div class="friends-search">
             <input type="text" id="friendsSearchInput" placeholder="Tìm bạn bè theo email">
+            <p id="gybb">Gợi ý bạn bè</p>
         </div>
 
 
@@ -422,7 +303,17 @@
                     <h3>Phuong Ngon</h3>
                     <p>5 bạn chung</p>
                     <button class="btn-accept">Thêm bạn bè</button>
-                    <button class="btn-delete">Xóa</button>
+                    <button class="btn-delete">Gỡ</button>
+                </div>
+            </div>
+            <!-- CARD 1 -->
+            <div class="friend-card">
+                <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c" class="friend-img">
+                <div class="friend-info">
+                    <h3>Phuong Ngon</h3>
+                    <p>5 bạn chung</p>
+                    <button class="btn-accept">Thêm bạn bè</button>
+                    <button class="btn-delete">Gỡ</button>
                 </div>
             </div>
         </div>
