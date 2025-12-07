@@ -20,13 +20,40 @@ import { initMqtt }
 let typingIndicatorElement = null;
 let userTypingTimeout = null; // Timeout để track user typing
 let threads = [];
+// ✅ MAP GIỮ AVATAR NHÓM – KHÔNG BAO GIỜ RANDOM LẠI
+const groupAvatarMap = new Map();
+
+function renderGroupAvatar(thread) {
+  const avatars = groupAvatarMap.get(thread.id) || [];
+
+  return `
+    <div class="avatar group-avatar" data-thread-id="${thread.id}">
+      <img src="${avatars[0]}" class="group-img first">
+      <img src="${avatars[1]}" class="group-img second">
+    </div>
+  `;
+}
+
 
 // ===== Khởi tạo app chat =====
 async function initChatApp() {
   try {
     const userId = localStorage.getItem("userId");
     const res = await GetConversations(userId);
-    threads = res.data || [];
+    // 🟦 SỬA
+    threads = (res.data || []).map(t => {
+      if (t.is_group) {
+        if (!groupAvatarMap.has(t.id)) {
+          const arr = JSON.parse(t.avatar || "[]");
+          const picked = arr.sort(() => 0.5 - Math.random()).slice(0, 2);
+          groupAvatarMap.set(t.id, picked);
+        }
+      }
+      return t;
+    });
+
+
+
     console.log("Fetched conversations:", res.data);
     initMqtt();
 
@@ -103,44 +130,35 @@ function renderThreads(list) {
     const li = document.createElement('li');
     li.className = 'thread-item' + ((activeThread && t.id === activeThread.id) ? ' active' : '');
     li.dataset.id = t.id;
+        
     if (t.is_group) {
-      // let avatarArray = JSON.parse(t.avatar);
-      // avatarArray.forEach(img => {
-      //   console.log(img);
-      // });
-      let avatarArray = JSON.parse(t.avatar);
-      let avatarsHTML = '';
-      // Giới hạn số lượng ảnh hiển thị là 3 (hoặc tùy ý bạn)
-      avatarArray.slice(0, 3).forEach((img, index) => {
-        avatarsHTML += `<img src="${img}" alt="Avatar ${index + 1}" class="group-avatar" style="z-index: ${3 - index};">`;
-      });
 
       li.innerHTML = `
-       <div class="avatar group">
-        ${avatarsHTML}
+        ${t.is_group
+          ? renderGroupAvatar(t)
+          : `<div class="avatar"><img src="${avatar}"></div>`
+        }
+
+        <div class="thread-meta">
+          <div class="name">${t.name}</div>
+          <div class="snippet">${t.snippet || ''}</div>
         </div>
-      <div class="thread-meta">
-        <div class="name">${t.name}</div>
-        <div class="snippet">${t.snippet || ''}</div>
-      </div>
-      <div class="thread-time">${t.time || ''}</div>
+        <div class="thread-time">${t.time || ''}</div>
 
-      <!-- Nút 3 chấm -->
-      <button class="icon-btn more-btn">⋮</button>
+        <button class="icon-btn more-btn">⋮</button>
 
-      <!-- Menu ẩn -->
-      <ul class="thread-menu" hidden>
-        <li>Đánh dấu là chưa đọc</li>
-        <li>Tắt thông báo</li>
-        <li>Xem trang cá nhân</li>
-        <li>Gọi thoại</li>
-        <li>Chat video</li>
-        <li>Chặn</li>
-        <li>Lưu trữ đoạn chat</li>
-        <li>Xóa đoạn chat</li>
-        <li>Báo cáo</li>
-      </ul>
-    `;
+        <ul class="thread-menu" hidden>
+          <li>Đánh dấu là chưa đọc</li>
+          <li>Tắt thông báo</li>
+          <li>Xem trang cá nhân</li>
+          <li>Gọi thoại</li>
+          <li>Chat video</li>
+          <li>Chặn</li>
+          <li>Lưu trữ đoạn chat</li>
+          <li>Xóa đoạn chat</li>
+          <li>Báo cáo</li>
+        </ul>
+      `;
     }
     else {
       let avatarArray = JSON.parse(t.avatar);
@@ -509,12 +527,13 @@ function setActiveThread(id) {
 
   // Cập nhật avatar cho nhóm (group) với nhiều ảnh
   // if (activeThread.is_group) {
-    let avatarArray = JSON.parse(activeThread.avatar);
-    let avatarsHTML = '';
-    avatarArray.slice(0, 3).forEach((img, index) => {
-      avatarsHTML += `<img src="${img}" class="group-avatar" style="z-index: ${3 - index};">`;
-    });
-    peerAvatar.innerHTML = avatarsHTML; // Thay vì peerAvatar.src, ta dùng innerHTML để gắn các ảnh
+  // 🟩 THAY AVATAR Ở CHAT-PANE BẰNG CÁI NÀY:
+  if (activeThread.is_group) {
+    peerAvatar.innerHTML = renderGroupAvatar(activeThread);
+  } else {
+    peerAvatar.innerHTML = `<img src="${activeThread.avatar}" alt="">`;
+  }
+
   // } else {
   //   // Nếu là thread cá nhân, chỉ gán một avatar duy nhất
   //   peerAvatar.innerHTML = `<img src="${activeThread.avatar}" alt="Avatar">`;
@@ -753,6 +772,16 @@ msgInput.addEventListener('input', () => {
     status: "typing"
   });
 });
+
+const savedThreadId = localStorage.getItem("activeThreadId");
+
+if (savedThreadId) {
+    const found = threads.find(t => t.id == savedThreadId);
+    if (found) {
+        activeThread = found;
+    }
+    localStorage.removeItem("activeThreadId");
+}
 
 
 

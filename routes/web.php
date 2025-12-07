@@ -40,3 +40,8 @@ Route::get('/chat', function () {
 Route::get('/friends', function () {
     return view('app_friends/layouts/app_friends');
 })->name('friends');
+
+Route::get('/profile-panel/{id}', function ($id) {
+    // sau này gắn dữ liệu user theo id
+    return view('app_personal.layouts.profile_panel');
+});

@@ -4,10 +4,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const sidebarDefault = document.getElementById("sidebarDefault");
     const sidebarSuggest = document.getElementById("sidebarSuggest");
     const sidebarAllFriends = document.getElementById("sidebarAllFriends");
+    /*const friendsContent = document.getElementById("friendsContent");*/
 
     const friendsHomeHeader = document.getElementById("friendsHome");
+    const friendsSearchInput = document.getElementById("friendsSearchInput");
     const friendsGrid = document.querySelector(".friends-grid");
     const friendsRequest = document.getElementById("friendsRequest");
+    const gybb = document.getElementById("gybb");
 
     const suggests = document.querySelector('[data-page="suggestions"]');
     const allfriends = document.querySelector('[data-page="allfriends"]');
@@ -19,11 +22,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
         /* Sidebar */
         sidebarDefault.classList.add("hidden");
+        /*friendsContent.classList.add("hidden");*/
         sidebarSuggest.classList.remove("hidden");
 
         /* Main content */
+        friendsSearchInput.classList.add("hidden");
         friendsHomeHeader.classList.add("hidden");
         friendsGrid.classList.add("hidden");
+        gybb.classList.add("hidden");
 
         friendsRequest.classList.remove("hidden");
         friendsRequest.innerHTML = renderRequestPlaceholder();
@@ -36,8 +42,10 @@ document.addEventListener("DOMContentLoaded", () => {
         sidebarAllFriends.classList.remove("hidden");
 
         /* Main content */
+        friendsSearchInput.classList.add("hidden");
         friendsHomeHeader.classList.add("hidden");
         friendsGrid.classList.add("hidden");
+        gybb.classList.add("hidden");
 
         friendsRequest.classList.remove("hidden");
         friendsRequest.innerHTML = renderRequestPlaceholder();
@@ -53,9 +61,11 @@ document.addEventListener("DOMContentLoaded", () => {
         /* Main content */
         friendsRequest.classList.add("hidden");
         friendsRequest.innerHTML = "";
+        gybb.classList.remove("hidden");
 
         friendsHomeHeader.classList.remove("hidden");
         friendsGrid.classList.remove("hidden");
+        friendsSearchInput.classList.remove("hidden");
     });
 
     /* ===== CLICK: QUAY LẠI ===== */
@@ -68,9 +78,11 @@ document.addEventListener("DOMContentLoaded", () => {
         /* Main content */
         friendsRequest.classList.add("hidden");
         friendsRequest.innerHTML = "";
+        gybb.classList.remove("hidden");
 
         friendsHomeHeader.classList.remove("hidden");
         friendsGrid.classList.remove("hidden");
+        friendsSearchInput.classList.remove("hidden");
     });
 
 });

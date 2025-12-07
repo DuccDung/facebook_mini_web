@@ -95,3 +95,30 @@
   margin-top: 2px
 }
 /*khi nhấn tạo nhóm*/
+.avatar.group-avatar {
+  position: relative;
+  width: 44px;
+  height: 44px;
+}
+
+.group-avatar .group-img {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  position: absolute;
+}
+
+/* ảnh sau */
+.group-avatar .first {
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+/* ảnh trước (đè lên) */
+.group-avatar .second {
+  bottom: 0;
+  right: 0;
+  z-index: 2;
+}
