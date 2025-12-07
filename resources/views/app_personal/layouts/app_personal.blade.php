@@ -18,6 +18,7 @@
     @vite('resources/js/pages/app_home/notification.js')
     @vite('resources/js/pages/app_home/setup_home.js')
     @vite('resources/css/pages/app_chat/top_bar.css')
+    @vite('resources/js/pages/logout.js')
 </head>
 
 <body>

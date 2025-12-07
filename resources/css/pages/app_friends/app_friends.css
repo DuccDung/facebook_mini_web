@@ -532,3 +532,22 @@
     border-bottom: 1px solid #ddd;
     padding-bottom: 8px;
 }
+.friends-search {
+    margin: 10px 0 20px;
+    width: 30%;
+}
+
+.friends-search input {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    outline: none;
+    transition: 0.2s ease;
+}
+
+.friends-search input:focus {
+    border-color: #0866ff;
+    box-shadow: 0 0 0 2px rgba(8, 102, 255, 0.2);
+}

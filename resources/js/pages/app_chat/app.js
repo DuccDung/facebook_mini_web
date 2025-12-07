@@ -754,5 +754,15 @@ msgInput.addEventListener('input', () => {
   });
 });
 
+const savedThreadId = localStorage.getItem("activeThreadId");
+
+if (savedThreadId) {
+    const found = threads.find(t => t.id == savedThreadId);
+    if (found) {
+        activeThread = found;
+    }
+    localStorage.removeItem("activeThreadId");
+}
+
 
 

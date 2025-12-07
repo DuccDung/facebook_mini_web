@@ -125,3 +125,125 @@ document.addEventListener("click", function (e) {
     }
 
 });
+
+import { getFriends } from "../../services/friend_service";
+
+
+document.addEventListener("DOMContentLoaded", async () => {
+    await loadFriendList();
+});
+
+async function loadFriendList() {
+    const container = document.getElementById("friendsSidebarList");
+    const userId = localStorage.getItem("userId");
+    const friendCountEl = document.getElementById("friendCount");
+
+    if (!container|| !friendCountEl) {
+        console.error("Không tìm thấy #friendsSidebarList trong HTML");
+        return;
+    }
+
+    if (!userId) {
+        console.error("Không có userId trong localStorage");
+        return;
+    }
+
+    try {
+        const data = await getFriends(userId);
+        console.log("Danh sách bạn bè API trả về:", data);
+
+        friendCountEl.textContent = `${data.count} người bạn`;
+
+        const friends = data?.info;
+
+        if (!Array.isArray(friends)) {
+            console.error("friends không phải mảng:", friends);
+            return;
+        }
+
+        container.innerHTML = ""; // Xóa danh sách cũ
+
+        friends.forEach(friend => {
+            const friendDiv = document.createElement("div");
+            friendDiv.classList.add("friend-user");
+            friendDiv.setAttribute("data-user-id", friend.userId);
+
+            friendDiv.innerHTML = `
+                <img src="${friend.avatarUrl}" alt="${friend.userName}">
+                <div class="info">
+                    <strong>${friend.userName}</strong>
+                    <p>${friend.mutualFriends} bạn chung</p>
+                    <div class="actions">
+                        <button class="btn-hkb" data-id="${friend.userId}">Hủy kết bạn</button>
+                        <button class="btn-mess" data-id="${friend.userId}">Nhắn tin</button>
+                    </div>
+                </div>
+            `;
+
+            container.appendChild(friendDiv);
+        });
+
+    } catch (error) {
+        console.error("Lỗi tải danh sách bạn bè:", error);
+    }
+}
+
+/*khi nhấn vào nhắn tin ở TẤT CẢ BẠN BÈ*/
+
+document.addEventListener("click", async (e) => {
+    const btn = e.target.closest(".btn-mess");
+    if (!btn) return;
+
+    const friendId = Number(btn.dataset.id);
+    await openOrCreateChat(friendId);
+});
+
+import { createGroupChat } from "../../services/friend_service";
+import { GetConversations } from "../../services/conversation_service";
+
+async function openOrCreateChat(friendId) {
+    const userId = Number(localStorage.getItem("userId"));
+
+    // 1️⃣ Lấy danh sách conversation của user
+    const res = await GetConversations(userId);
+    const conversations = res.data || [];
+
+    // 2️⃣ Kiểm tra xem đã có conversation 1-1 với friend chưa
+    let existing = conversations.find(c =>
+        c.is_group === false &&
+        c.participants?.some(p => p.userId === friendId)
+    );
+
+    // 3️⃣ Nếu đã có → mở đoạn chat đó
+    if (existing) {
+        console.log("ĐÃ CÓ đoạn chat:", existing.id);
+
+        // Lưu ID để trang Messenger đọc được
+        localStorage.setItem("activeThreadId", existing.id);
+
+        // Điều hướng sang Messenger
+        window.location.href = "/chat";
+        return;
+    }
+
+    // 4️⃣ Nếu CHƯA có → tạo conversation mới
+    console.log("CHƯA CÓ đoạn chat → tạo mới");
+
+    const createdAt = new Date().toISOString();
+
+    const newChat = await createGroupChat(
+        userId,
+        [friendId],
+        false,      // isGroup = false
+        "",         // title = rỗng (chat 1-1)
+        createdAt
+    );
+
+    console.log("Tạo thành công:", newChat);
+
+    // 5️⃣ Lưu ID đoạn chat mới để Messenger mở đúng
+    localStorage.setItem("activeThreadId", newChat.id);
+
+    // 6️⃣ Điều hướng sang Messenger
+    window.location.href = "/chat";
+}

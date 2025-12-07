@@ -14,6 +14,8 @@
     @vite('resources/js/pages/app_home/setup_home.js')
     @vite('resources/css/pages/app_chat/top_bar.css')
     @vite('resources/js/pages/app_home/notification.js')
+    @vite('resources/js/pages/app_home/friends.js')
+    @vite('resources/js/pages/logout.js')
 </head>
 
 <body>
@@ -258,21 +260,8 @@
                 <div class="section-header">
                     <h3>Người liên hệ</h3>
                 </div>
-                <div class="contacts-list">
-                    <a href="#" class="contact-item">
-                        <div class="contact-avatar">
-                            <img src="messenger-clone/assets/images/contact-1.png" alt="">
-                            <span class="online-dot"></span>
-                        </div>
-                        <span class="contact-name">Lê Ngọc</span>
-                    </a>
-                    <a href="#" class="contact-item">
-                        <div class="contact-avatar">
-                            <img src="messenger-clone/assets/images/contact-2.png" alt="">
-                            <span class="online-dot"></span>
-                        </div>
-                        <span class="contact-name">Trần Mai</span>
-                    </a>
+                <div class="contacts-list" id="contactsList">
+                    
                 </div>
             </div>
         </aside>

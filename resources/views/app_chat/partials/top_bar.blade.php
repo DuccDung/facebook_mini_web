@@ -47,7 +47,7 @@
         <div class="avatar-dropdown hidden" id="avatarDropdown">
             <a href="{{ route('personal') }}" class="profile-btn">Xem trang cá nhân</a>
 
-            <div class="menu-item shadow-hover">
+            <div class="menu-item shadow-hover" id="logoutBtn">
                 <div class="menu-icon-circle"><i class="fas fa-sign-out-alt"></i></div>
                 <div class="menu-text">Đăng xuất</div>
             </div>

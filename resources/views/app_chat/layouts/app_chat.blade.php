@@ -21,6 +21,8 @@
     @vite('resources/js/pages/app_chat/left_pane.js')
     @vite('resources/js/pages/app_chat/create_group.js')
     @vite('resources/js/pages/app_home/setup_home.js')
+    @vite('resources/js/pages/logout.js')
+    @vite('resources/js/pages/app_personal/setup_profile.js')
 </head>
 <body>
     @include('app_chat.partials.top_bar')
