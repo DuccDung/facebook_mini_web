@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{ mix('resources/css/pages/app_chat/style.css') }}" />
     <link rel="icon" href="{{ mix('resources/assets/app_chat/icons/facebook.svg') }}">
     <link rel="stylesheet" href="{{ mix('resources/css/pages/notification.css') }}" />
-    
+
 
     @vite('resources/css/pages/app_chat/chat_pane.css')
     @vite('resources/css/pages/app_chat/left_pane.css')
@@ -19,7 +19,9 @@
     @vite('resources/js/pages/app_chat/chat_pane.js')
     @vite('resources/js/pages/app_chat/left_pane.js')
     @vite('resources/js/pages/app_chat/create_group.js')
+    @vite('resources/js/pages/app_chat/call.js')
 </head>
+
 <body>
     @include('app_chat.partials.top_bar')
     <div class="app">
@@ -29,7 +31,6 @@
         <!-- RIGHT: conversation -->
         @include('app_chat.partials.chat_pane')
     </div>
-
     <div id="emojiPanel" class="emoji-panel" hidden aria-hidden="true"></div>
 
     <!-- Call overlays: integrated UIs from separate demo pages -->
@@ -135,8 +136,8 @@
 
     <!-- Video call overlay -->
     <div id="videoCallOverlay" class="call-overlay video" hidden>
-        <video id="vcRemote" class="video-bg" autoplay muted loop playsinline
-            src="https://www.w3schools.com/html/mov_bbb.mp4"></video>
+        <video id="vcRemote" class="video-bg" autoplay playsinline></video>
+
         <video id="vcLocalFull" class="local-fullscreen" autoplay muted playsinline style="display:none"></video>
         <div class="overlay" aria-hidden="true"></div>
         <button class="fullscreen-btn" id="vcFullscreenBtn" title="Toàn màn hình" aria-label="Fullscreen">
@@ -155,8 +156,7 @@
         </div>
         <div id="vcRemoteThumb" class="thumb" title="Nhấn để xem người kia" aria-label="Remote thumbnail"
             tabindex="0" style="display:none">
-            <video id="vcRemoteThumbVideo" autoplay muted loop playsinline
-                src="https://www.w3schools.com/html/mov_bbb.mp4"></video>
+            <video id="vcRemoteThumbVideo" autoplay muted playsinline></video>
         </div>
         <div class="bottom-controls" role="toolbar" aria-label="Call controls">
             <button class="control-btn" id="vcShareBtn" title="Chia sẻ màn hình" aria-label="Share screen">
@@ -235,49 +235,6 @@
             </div>
         </div>
     </div>
-
-    {{-- <script src="js/call.js"></script> --}}
-    <!-- Code injected by live-server -->
-    {{-- <script>
-        // <![CDATA[  <-- For SVG support
-        if ('WebSocket' in window) {
-            (function() {
-                function refreshCSS() {
-                    var sheets = [].slice.call(document.getElementsByTagName("link"));
-                    var head = document.getElementsByTagName("head")[0];
-                    for (var i = 0; i < sheets.length; ++i) {
-                        var elem = sheets[i];
-                        var parent = elem.parentElement || head;
-                        parent.removeChild(elem);
-                        var rel = elem.rel;
-                        if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() ==
-                            "stylesheet") {
-                            var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-                            elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date()
-                                .valueOf());
-                        }
-                        parent.appendChild(elem);
-                    }
-                }
-                var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-                var address = protocol + window.location.host + window.location.pathname + '/ws';
-                var socket = new WebSocket(address);
-                socket.onmessage = function(msg) {
-                    if (msg.data == 'reload') window.location.reload();
-                    else if (msg.data == 'refreshcss') refreshCSS();
-                };
-                if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-                    console.log('Live reload enabled.');
-                    sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-                }
-            })();
-        } else {
-            console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-        }
-        // ]]>
-    </script> --}}
-
-    {{-- Popup tạo nhóm --}}
 
     @include('app_chat.partials.create_group')
 </body>

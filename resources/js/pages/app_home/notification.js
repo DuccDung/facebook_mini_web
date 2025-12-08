@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
         else if(data.type === "status_friend"){
             console.log("Friend status update:", data);
         }
-         //console.log("Friend status update:", data);
+        //  console.log("", data);
     };
 });
 function formatTime(timeString) {

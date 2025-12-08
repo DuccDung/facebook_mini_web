@@ -20,7 +20,13 @@ import { initMqtt }
 let typingIndicatorElement = null;
 let userTypingTimeout = null; // Timeout để track user typing
 let threads = [];
-
+let active_id = 0;
+export function getActiveId() {
+  return active_id;
+}
+export function getThreads() {
+  return threads;
+}
 // ===== Khởi tạo app chat =====
 async function initChatApp() {
   try {
@@ -32,7 +38,7 @@ async function initChatApp() {
 
     // chọn thread đầu tiên hoặc thread active
     activeThread = threads.find(t => t.active) || threads[0];
-
+    active_id = activeThread.id;
     // render danh sách
     renderThreads(threads);
 
@@ -502,7 +508,7 @@ toBar.hidden = true;
 // }
 function setActiveThread(id) {
   activeThread = threads.find(t => t.id === id) || threads[0];
-
+  active_id = id;
   document.querySelectorAll('.thread-item').forEach(el => {
     el.classList.toggle('active', +el.dataset.id === id);
   });
