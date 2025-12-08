@@ -361,12 +361,95 @@ function ensureDraftThread() {
   composer.style.display = "flex";
   return thread;
 }
+async function checkToxicity(text) {
+  try {
+    const response = await fetch('https://dongtruong1910-viet-toxic-classifier.hf.space/predict', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        text: text
+      })
+    });
+    const data = await response.json();
+    if (data.prediction === "HATE" || data.prediction === "OFFENSIVE" ) {
+      console.log("ngôn từ toxic!");
+      alert("Bạn Vừa Nhập Từ Nhạy Cảm, Vui Lòng Nhập Lại!");
+      return false;  // Return false if it's toxic
+    } else {
+      return true;  // Return true if it's safe
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    return false; // Reject if there was an error
+  }
+}
 
 // ===== Gửi tin nhắn =====
-function sendMessage() {
+// async function sendMessage() {
+//   const text = msgInput.value.trim();
+//   if (!text) return;  // If text is empty, do nothing
+
+//   const isSafe = await checkToxicity(text);  // Wait for the toxicity check
+
+//   if (!isSafe) return;  // If message is toxic, do not proceed
+
+//   // Proceed with sending the message here
+//   console.log("Message sent:", text);
+
+//   // Nếu đang tạo mới, đảm bảo có thread nháp sẵn để nhận tin
+//   if (isComposingNew && selectedRecipients.length > 0) {
+//     ensureDraftThread();
+//   }
+
+//   // (text, time_mesage, side = 'right', senderName = 'User', isGroup, push = true) 
+//   appendMessage(text, new Date().toISOString(), 'right', null, false, true);
+
+//   // === Publish tin nhắn qua MQTT ===
+//   if (activeThread) {
+//     const payload = {
+//       text,
+//       senderId: localStorage.getItem("userId"),
+//       threadId: activeThread.id,
+//       messageType: 1, // text
+//       senderName: "",
+//       createdAt: new Date().toISOString()
+//     };
+//     publishToRoom(activeThread.id, payload);
+//   }
+
+//   // Cập nhật snippet/time + đẩy lên đầu
+//   activeThread.snippet = "Bạn: " + text;
+//   activeThread.time = "vừa xong";
+//   const idx = threads.findIndex(t => t.id === activeThread.id);
+//   if (idx > 0) {
+//     const [t] = threads.splice(idx, 1);
+//     threads.unshift(t);
+//   }
+//   renderThreads(threads);
+
+//   msgInput.value = '';
+//   scroller.scrollTop = scroller.scrollHeight;
+
+//   // Sau khi gửi tin đầu tiên, “đóng” chế độ tạo mới
+//   if (isComposingNew) {
+//     isComposingNew = false;
+//     toBar.style.display = "none";
+//     selectedRecipients = [];
+//     toSearchResults.innerHTML = "";
+//     [...toInput.querySelectorAll(".tag")].forEach(t => t.remove());
+//     draftThreadId = null; // thread nháp đã trở thành thread thật
+//   }
+// }
+
+// ===== Gửi tin nhắn =====
+async function sendMessage() {
   const text = msgInput.value.trim();
   if (!text) return;
+  const isSafe = checkToxicity(text);  // Wait for the toxicity check
 
+  if (!isSafe) return; 
   // Nếu đang tạo mới, đảm bảo có thread nháp sẵn để nhận tin
   if (isComposingNew && selectedRecipients.length > 0) {
     ensureDraftThread();
@@ -410,10 +493,17 @@ function sendMessage() {
     draftThreadId = null; // thread nháp đã trở thành thread thật
   }
 }
-sendBtn?.addEventListener('click', sendMessage);
-msgInput?.addEventListener('keydown', e => {
-  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+sendBtn?.addEventListener('click', async () => {
+  await sendMessage();  // Now you can use await here within an async function
 });
+
+msgInput?.addEventListener('keydown', async (e) => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    await sendMessage();  // Use await properly here
+  }
+});
+
 
 // ===== Search threads =====
 threadSearch?.addEventListener('input', e => {
